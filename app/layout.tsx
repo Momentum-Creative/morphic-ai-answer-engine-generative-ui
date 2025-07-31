@@ -91,6 +91,7 @@ export default async function RootLayout({
           </SidebarProvider>
           <Toaster />
           <Analytics />
+          <BrandCreatorWrapper />
         </ThemeProvider>
       </body>
     </html>
