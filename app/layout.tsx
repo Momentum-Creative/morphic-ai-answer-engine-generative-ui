@@ -11,6 +11,7 @@ import { Toaster } from '@/components/ui/sonner'
 
 import AppSidebar from '@/components/app-sidebar'
 import ArtifactRoot from '@/components/artifact/artifact-root'
+import { BrandCreatorWrapper } from '@/components/brand-creator-wrapper'
 import Header from '@/components/header'
 import { ThemeProvider } from '@/components/theme-provider'
 
