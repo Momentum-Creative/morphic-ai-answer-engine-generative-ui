@@ -13,6 +13,7 @@ import AppSidebar from '@/components/app-sidebar'
 import ArtifactRoot from '@/components/artifact/artifact-root'
 import { BrandCreatorWrapper } from '@/components/brand-creator-wrapper'
 import Header from '@/components/header'
+import { SplineBackground } from '@/components/spline-background'
 import { ThemeProvider } from '@/components/theme-provider'
 
 import './globals.css'
