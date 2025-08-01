@@ -151,7 +151,7 @@ export function ChatPanel({
             tabIndex={0}
             onCompositionStart={handleCompositionStart}
             onCompositionEnd={handleCompositionEnd}
-            placeholder="Ask a question..."
+            placeholder="share existing campaign ideas, strategy, or specific concepts..."
             spellCheck={false}
             value={input}
             disabled={isLoading || isToolInvocationInProgress()}
