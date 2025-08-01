@@ -81,6 +81,7 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <SplineBackground />
           <SidebarProvider defaultOpen>
             <AppSidebar />
             <div className="flex flex-col flex-1">
