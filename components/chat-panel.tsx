@@ -120,7 +120,7 @@ export function ChatPanel({
       {messages.length === 0 && (
         <div className="mb-10 flex flex-col items-center gap-4">
           <p className="text-center text-3xl font-semibold">
-            video concept copilot
+            Video Concept Copilot
           </p>
         </div>
       )}
