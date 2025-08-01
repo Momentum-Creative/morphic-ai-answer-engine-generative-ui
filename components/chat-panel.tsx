@@ -119,9 +119,8 @@ export function ChatPanel({
     >
       {messages.length === 0 && (
         <div className="mb-10 flex flex-col items-center gap-4">
-          <IconLogo className="size-12 text-muted-foreground" />
           <p className="text-center text-3xl font-semibold">
-            your video concept companion
+            video concept copilot
           </p>
         </div>
       )}
