@@ -120,10 +120,15 @@ export function ChatPanel({
     >
       {messages.length === 0 && (
         <div className="mb-10 flex flex-col items-center gap-4">
-          <ProjectIndicator conceptProgress={messages.length > 0 ? 50 : 0} />
-          <p className="text-center text-3xl font-semibold">
-            Video Concept Copilot
-          </p>
+          <div className="flex items-center justify-between w-full max-w-3xl">
+            <div className="flex-1"></div>
+            <p className="text-center text-3xl font-semibold">
+              Video Concept Copilot
+            </p>
+            <div className="flex-1 flex justify-end">
+              <ProjectIndicator conceptProgress={messages.length > 0 ? 50 : 0} />
+            </div>
+          </div>
         </div>
       )}
       <form
