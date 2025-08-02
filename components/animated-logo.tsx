@@ -27,17 +27,17 @@ export function AnimatedLogo() {
       </div>
 
       {/* Text that slides in from the right */}
-      <div className="overflow-hidden">
+      <div
+        className={cn(
+          'overflow-hidden transition-all duration-300 ease-in-out',
+          isHovered ? 'max-w-[140px] ml-2' : 'max-w-0 ml-0'
+        )}
+      >
         <span
           className={cn(
             'font-semibold text-sm whitespace-nowrap transition-all duration-300 ease-in-out block',
-            isHovered
-              ? 'translate-x-0 opacity-100'
-              : 'translate-x-full opacity-0'
+            isHovered ? 'opacity-100' : 'opacity-0'
           )}
-          style={{
-            transform: isHovered ? 'translateX(0)' : 'translateX(100%)',
-          }}
         >
           Momentum Creative
         </span>
