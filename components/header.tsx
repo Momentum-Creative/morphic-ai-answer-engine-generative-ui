@@ -34,6 +34,7 @@ export const Header: React.FC<HeaderProps> = ({ user }) => {
 
       <div className="flex items-center gap-4">
         <AnimatedLogo />
+        <NotificationPanel />
         {user ? <UserMenu user={user} /> : <GuestMenu />}
       </div>
     </header>
