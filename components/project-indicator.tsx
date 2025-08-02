@@ -13,6 +13,7 @@ import {
 
 interface ProjectIndicatorProps {
   className?: string
+  conceptProgress?: number // 0-100, tracks how much of the concept is filled
 }
 
 export function ProjectIndicator({ className }: ProjectIndicatorProps) {
