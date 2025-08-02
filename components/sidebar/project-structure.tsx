@@ -60,6 +60,7 @@ const getMediaIcon = (type: MediaItem['type']) => {
 }
 
 export function ProjectStructure() {
+  const { notifyTodoCompleted, notifyTodoAdded } = useNotificationActions()
   const [folders, setFolders] = useState<Record<string, FolderState>>({
     'my-first-project': {
       isExpanded: false,
