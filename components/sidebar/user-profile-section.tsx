@@ -57,7 +57,7 @@ export function UserProfileSection({ user, userType, compact = false }: UserProf
           </p>
 
           {/* Hover Tooltip */}
-          <div className="absolute top-full left-0 mt-2 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto">
+          <div className="absolute top-full left-0 mt-2 z-50 opacity-0 group-hover/user-profile:opacity-100 transition-opacity duration-200 pointer-events-none group-hover/user-profile:pointer-events-auto">
             <div className="bg-popover border border-border rounded-lg shadow-lg p-3 min-w-[200px]">
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
