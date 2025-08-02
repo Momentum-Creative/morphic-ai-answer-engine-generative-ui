@@ -166,7 +166,10 @@ export function ConceptNodes() {
                 <div className="relative">
                   {/* Thin circle indicator for nodes with content */}
                   {nodesWithContent.has(node.id) && (
-                    <div className="absolute inset-0 rounded-full border-2 border-blue-400 animate-pulse" />
+                    <div className={cn(
+                      "absolute inset-0 rounded-full border-2 animate-pulse",
+                      node.color.replace('text-', 'border-')
+                    )} />
                   )}
 
                   <Button
