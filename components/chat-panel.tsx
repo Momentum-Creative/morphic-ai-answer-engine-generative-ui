@@ -190,8 +190,7 @@ export function ChatPanel({
             {/* Traditional controls */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <ModelSelector models={models || []} />
-                <SearchModeToggle />
+                <CreditsIndicator />
               </div>
               <div className="flex items-center gap-2">
                 {messages.length > 0 && (
