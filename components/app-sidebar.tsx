@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { User } from '@supabase/supabase-js'
 
 import { Plus } from 'lucide-react'
 
@@ -16,8 +17,13 @@ import {
 } from '@/components/ui/sidebar'
 
 import { ProjectStructure } from './sidebar/project-structure'
+import { UserProfileSection } from './sidebar/user-profile-section'
 
-export default function AppSidebar() {
+interface AppSidebarProps {
+  user?: User | null
+}
+
+export default function AppSidebar({ user }: AppSidebarProps) {
   return (
     <Sidebar side="left" variant="sidebar" collapsible="offcanvas">
       <SidebarHeader className="flex flex-row justify-end items-center px-2 py-3">
