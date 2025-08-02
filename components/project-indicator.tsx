@@ -57,7 +57,7 @@ export function ProjectIndicator({ className, conceptProgress = 0 }: ProjectIndi
     <div className={cn('flex flex-col items-center mb-6', className)}>
       {/* Concept Name Display */}
       {conceptName && (
-        <div className="mb-2 text-right">
+        <div className="mb-2 text-center">
           <h2 className="text-lg font-semibold text-foreground">"{conceptName}"</h2>
           <p className="text-xs text-muted-foreground">AI-Generated</p>
         </div>
