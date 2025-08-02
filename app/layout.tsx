@@ -71,10 +71,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={cn(
-          'min-h-screen font-sans antialiased',
-          fontSans.variable
-        )}
+        className={cn('min-h-screen font-sans antialiased', fontSans.variable)}
       >
         <ThemeProvider
           attribute="class"
@@ -84,19 +81,19 @@ export default async function RootLayout({
         >
           <NotificationProvider>
             <SplineBackground />
-          <SidebarProvider defaultOpen>
-            <div className="relative z-10">
-              <AppSidebar user={user} />
-            </div>
-            <div className="flex flex-col flex-1 relative z-10">
-              <Header user={user} />
-              <main className="flex flex-1 min-h-0">
-                <ArtifactRoot>{children}</ArtifactRoot>
-              </main>
-            </div>
-          </SidebarProvider>
-          <Toaster />
-          <Analytics />
+            <SidebarProvider defaultOpen>
+              <div className="relative z-10">
+                <AppSidebar user={user} />
+              </div>
+              <div className="flex flex-col flex-1 relative z-10">
+                <Header user={user} />
+                <main className="flex flex-1 min-h-0">
+                  <ArtifactRoot>{children}</ArtifactRoot>
+                </main>
+              </div>
+            </SidebarProvider>
+            <Toaster />
+            <Analytics />
             <BrandCreatorWrapper />
           </NotificationProvider>
         </ThemeProvider>

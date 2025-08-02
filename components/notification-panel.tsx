@@ -1,7 +1,17 @@
 'use client'
 
 import { useState } from 'react'
-import { Bell, X, CheckCheck, Trash2, FileText, FolderOpen, Image, Lightbulb, Settings } from 'lucide-react'
+import {
+  Bell,
+  X,
+  CheckCheck,
+  Trash2,
+  FileText,
+  FolderOpen,
+  Image,
+  Lightbulb,
+  Settings
+} from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from './ui/button'
 import { useNotifications, Notification } from './notification-context'
@@ -38,7 +48,14 @@ const getTypeColor = (type: Notification['type']) => {
 
 export function NotificationPanel() {
   const [isOpen, setIsOpen] = useState(false)
-  const { notifications, unreadCount, markAsRead, markAllAsRead, removeNotification, clearAll } = useNotifications()
+  const {
+    notifications,
+    unreadCount,
+    markAsRead,
+    markAllAsRead,
+    removeNotification,
+    clearAll
+  } = useNotifications()
 
   const formatTime = (date: Date) => {
     const now = new Date()
@@ -73,11 +90,11 @@ export function NotificationPanel() {
       {isOpen && (
         <>
           {/* Backdrop */}
-          <div 
-            className="fixed inset-0 z-40" 
+          <div
+            className="fixed inset-0 z-40"
             onClick={() => setIsOpen(false)}
           />
-          
+
           {/* Panel */}
           <div className="absolute right-0 top-full mt-2 w-80 max-h-96 bg-popover border border-border rounded-lg shadow-lg z-50 overflow-hidden">
             {/* Header */}
@@ -91,7 +108,7 @@ export function NotificationPanel() {
                   </span>
                 )}
               </div>
-              
+
               <div className="flex items-center gap-1">
                 {unreadCount > 0 && (
                   <Button
@@ -121,7 +138,7 @@ export function NotificationPanel() {
                   No notifications
                 </div>
               ) : (
-                notifications.map((notification) => (
+                notifications.map(notification => (
                   <div
                     key={notification.id}
                     className={cn(
@@ -131,17 +148,24 @@ export function NotificationPanel() {
                     onClick={() => markAsRead(notification.id)}
                   >
                     <div className="flex items-start gap-2">
-                      <div className={cn('flex-shrink-0 mt-0.5', getTypeColor(notification.type))}>
+                      <div
+                        className={cn(
+                          'flex-shrink-0 mt-0.5',
+                          getTypeColor(notification.type)
+                        )}
+                      >
                         {getCategoryIcon(notification.category)}
                       </div>
-                      
+
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between gap-2">
-                          <h4 className={cn(
-                            'font-medium text-sm truncate',
-                            !notification.read && 'text-foreground',
-                            notification.read && 'text-muted-foreground'
-                          )}>
+                          <h4
+                            className={cn(
+                              'font-medium text-sm truncate',
+                              !notification.read && 'text-foreground',
+                              notification.read && 'text-muted-foreground'
+                            )}
+                          >
                             {notification.title}
                           </h4>
                           <div className="flex items-center gap-1">
@@ -151,7 +175,7 @@ export function NotificationPanel() {
                             <Button
                               variant="ghost"
                               size="sm"
-                              onClick={(e) => {
+                              onClick={e => {
                                 e.stopPropagation()
                                 removeNotification(notification.id)
                               }}
@@ -161,11 +185,11 @@ export function NotificationPanel() {
                             </Button>
                           </div>
                         </div>
-                        
+
                         <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
                           {notification.message}
                         </p>
-                        
+
                         {!notification.read && (
                           <div className="w-2 h-2 bg-blue-500 rounded-full mt-2" />
                         )}

@@ -57,8 +57,9 @@ export function useNotificationActions() {
 
   const notifyCreditUsage = (used: number, total: number) => {
     const percentage = (used / total) * 100
-    const type = percentage > 80 ? 'warning' : percentage > 90 ? 'error' : 'info'
-    
+    const type =
+      percentage > 80 ? 'warning' : percentage > 90 ? 'error' : 'info'
+
     addNotification({
       type,
       title: 'Credit Usage Update',

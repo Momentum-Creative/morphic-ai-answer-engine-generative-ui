@@ -16,7 +16,10 @@ interface ProjectIndicatorProps {
   conceptProgress?: number // 0-100, tracks how much of the concept is filled
 }
 
-export function ProjectIndicator({ className, conceptProgress = 0 }: ProjectIndicatorProps) {
+export function ProjectIndicator({
+  className,
+  conceptProgress = 0
+}: ProjectIndicatorProps) {
   const [selectedProject, setSelectedProject] = useState('My First Project')
   const [conceptName, setConceptName] = useState('')
   const [isGeneratingName, setIsGeneratingName] = useState(false)
@@ -40,7 +43,8 @@ export function ProjectIndicator({ className, conceptProgress = 0 }: ProjectIndi
         'Visionary Impact',
         'Breakthrough Narrative'
       ]
-      const randomName = conceptNames[Math.floor(Math.random() * conceptNames.length)]
+      const randomName =
+        conceptNames[Math.floor(Math.random() * conceptNames.length)]
       setConceptName(randomName)
       setIsGeneratingName(false)
     }, 2000)
@@ -58,7 +62,9 @@ export function ProjectIndicator({ className, conceptProgress = 0 }: ProjectIndi
       {/* Concept Name Display */}
       {conceptName && (
         <div className="mb-2 text-center">
-          <h2 className="text-lg font-semibold text-foreground">"{conceptName}"</h2>
+          <h2 className="text-lg font-semibold text-foreground">
+            "{conceptName}"
+          </h2>
           <p className="text-xs text-muted-foreground">AI-Generated</p>
         </div>
       )}

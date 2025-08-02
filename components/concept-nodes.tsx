@@ -105,7 +105,9 @@ export function ConceptNodes() {
   const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set())
   const [hoveredNode, setHoveredNode] = useState<string | null>(null)
   const [showTextInput, setShowTextInput] = useState<Set<string>>(new Set())
-  const [nodesWithContent, setNodesWithContent] = useState<Set<string>>(new Set(['references'])) // Demo: references has content
+  const [nodesWithContent, setNodesWithContent] = useState<Set<string>>(
+    new Set(['references'])
+  ) // Demo: references has content
 
   const toggleNode = (nodeId: string) => {
     const newExpanded = new Set(expandedNodes)
@@ -168,7 +170,7 @@ export function ConceptNodes() {
                   {nodesWithContent.has(node.id) && (
                     <div
                       className={cn(
-                        "absolute inset-0 rounded-full border-2 animate-pulse cursor-pointer hover:scale-105 transition-transform duration-200",
+                        'absolute inset-0 rounded-full border-2 animate-pulse cursor-pointer hover:scale-105 transition-transform duration-200',
                         node.color.replace('text-', 'border-')
                       )}
                       onClick={() => toggleNode(node.id)}
@@ -185,7 +187,8 @@ export function ConceptNodes() {
                     className={cn(
                       'h-10 w-10 rounded-full p-0 transition-all duration-200',
                       isExpanded && 'shadow-lg scale-110',
-                      nodesWithContent.has(node.id) && `ring-1 ring-${node.color.split('-')[1]}-400/50`
+                      nodesWithContent.has(node.id) &&
+                        `ring-1 ring-${node.color.split('-')[1]}-400/50`
                     )}
                   >
                     <Icon className={cn('w-4 h-4', node.color)} />
@@ -258,15 +261,44 @@ export function ConceptNodes() {
                     /* Brand-specific subsections */
                     <div className="space-y-3">
                       {[
-                        { id: 'company-name', label: 'Company Name', placeholder: 'Enter company name...' },
-                        { id: 'campaign-name', label: 'Campaign Name', placeholder: 'Enter campaign name...' },
-                        { id: 'campaign-goals', label: 'Campaign Goals', placeholder: 'Define campaign objectives...' },
-                        { id: 'products-services', label: 'Product(s) or Services', placeholder: 'List products or services...' },
-                        { id: 'social-channels', label: 'Social Channels', placeholder: 'Specify social media channels...' },
-                        { id: 'brand-assets', label: 'Brand Assets (logo, brand guide, fonts)', placeholder: 'Upload or describe brand assets...' }
-                      ].map((subsection) => (
-                        <div key={subsection.id} className="border border-border/30 rounded-lg p-3 space-y-2">
-                          <h4 className="text-xs font-medium text-foreground">{subsection.label}</h4>
+                        {
+                          id: 'company-name',
+                          label: 'Company Name',
+                          placeholder: 'Enter company name...'
+                        },
+                        {
+                          id: 'campaign-name',
+                          label: 'Campaign Name',
+                          placeholder: 'Enter campaign name...'
+                        },
+                        {
+                          id: 'campaign-goals',
+                          label: 'Campaign Goals',
+                          placeholder: 'Define campaign objectives...'
+                        },
+                        {
+                          id: 'products-services',
+                          label: 'Product(s) or Services',
+                          placeholder: 'List products or services...'
+                        },
+                        {
+                          id: 'social-channels',
+                          label: 'Social Channels',
+                          placeholder: 'Specify social media channels...'
+                        },
+                        {
+                          id: 'brand-assets',
+                          label: 'Brand Assets (logo, brand guide, fonts)',
+                          placeholder: 'Upload or describe brand assets...'
+                        }
+                      ].map(subsection => (
+                        <div
+                          key={subsection.id}
+                          className="border border-border/30 rounded-lg p-3 space-y-2"
+                        >
+                          <h4 className="text-xs font-medium text-foreground">
+                            {subsection.label}
+                          </h4>
                           <textarea
                             placeholder={subsection.placeholder}
                             className="w-full h-16 p-2 text-xs bg-background border border-border rounded resize-none focus:outline-none focus:ring-1 focus:ring-ring"
@@ -304,7 +336,9 @@ export function ConceptNodes() {
                               size="sm"
                               className="h-6 text-xs"
                               onClick={() => {
-                                const textarea = document.getElementById(`textarea-${nodeId}`) as HTMLTextAreaElement
+                                const textarea = document.getElementById(
+                                  `textarea-${nodeId}`
+                                ) as HTMLTextAreaElement
                                 if (textarea) {
                                   saveContent(nodeId, textarea.value)
                                 }
@@ -325,22 +359,25 @@ export function ConceptNodes() {
                       )}
 
                       {!showTextInput.has(nodeId) && (
-                        <div className={cn(
-                          "h-20 rounded-lg border-2 border-dashed flex items-center justify-center",
-                          nodesWithContent.has(nodeId)
-                            ? `bg-${node.color.split('-')[1]}-50 border-${node.color.split('-')[1]}-200 dark:bg-${node.color.split('-')[1]}-950/20 dark:border-${node.color.split('-')[1]}-800`
-                            : "bg-muted/30 border-border"
-                        )}>
-                          <span className={cn(
-                            "text-xs",
+                        <div
+                          className={cn(
+                            'h-20 rounded-lg border-2 border-dashed flex items-center justify-center',
                             nodesWithContent.has(nodeId)
-                              ? `text-${node.color.split('-')[1]}-600 dark:text-${node.color.split('-')[1]}-400 font-medium`
-                              : "text-muted-foreground"
-                          )}>
+                              ? `bg-${node.color.split('-')[1]}-50 border-${node.color.split('-')[1]}-200 dark:bg-${node.color.split('-')[1]}-950/20 dark:border-${node.color.split('-')[1]}-800`
+                              : 'bg-muted/30 border-border'
+                          )}
+                        >
+                          <span
+                            className={cn(
+                              'text-xs',
+                              nodesWithContent.has(nodeId)
+                                ? `text-${node.color.split('-')[1]}-600 dark:text-${node.color.split('-')[1]}-400 font-medium`
+                                : 'text-muted-foreground'
+                            )}
+                          >
                             {nodesWithContent.has(nodeId)
                               ? `${node.name} content added ✓`
-                              : "Drop content here"
-                            }
+                              : 'Drop content here'}
                           </span>
                         </div>
                       )}

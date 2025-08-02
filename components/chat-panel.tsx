@@ -214,7 +214,8 @@ export function ChatPanel({
                   // Check if enough key nodes have content
                   // For now, we'll use messages or expanded nodes as proxy for content
                   // In real implementation, this would check specific concept node content
-                  const hasEnoughContent = messages.length > 0 || (input.length > 20)
+                  const hasEnoughContent =
+                    messages.length > 0 || input.length > 20
 
                   return hasEnoughContent ? (
                     <Button
@@ -224,7 +225,9 @@ export function ChatPanel({
                       disabled={isLoading || isToolInvocationInProgress()}
                       onClick={() => {
                         // This would trigger the concept generation process
-                        console.log('Generating concept with current node content...')
+                        console.log(
+                          'Generating concept with current node content...'
+                        )
                       }}
                     >
                       <span className="group-hover:scale-105 transition-transform duration-200">
@@ -236,7 +239,10 @@ export function ChatPanel({
                       type={isLoading ? 'button' : 'submit'}
                       size={'icon'}
                       variant={'outline'}
-                      className={cn(isLoading && 'animate-pulse', 'rounded-full')}
+                      className={cn(
+                        isLoading && 'animate-pulse',
+                        'rounded-full'
+                      )}
                       disabled={
                         (input.length === 0 && !isLoading) ||
                         isToolInvocationInProgress()

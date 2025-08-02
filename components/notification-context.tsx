@@ -16,19 +16,25 @@ export interface Notification {
 interface NotificationContextType {
   notifications: Notification[]
   unreadCount: number
-  addNotification: (notification: Omit<Notification, 'id' | 'timestamp' | 'read'>) => void
+  addNotification: (
+    notification: Omit<Notification, 'id' | 'timestamp' | 'read'>
+  ) => void
   markAsRead: (id: string) => void
   markAllAsRead: () => void
   removeNotification: (id: string) => void
   clearAll: () => void
 }
 
-const NotificationContext = createContext<NotificationContextType | undefined>(undefined)
+const NotificationContext = createContext<NotificationContextType | undefined>(
+  undefined
+)
 
 export function useNotifications() {
   const context = useContext(NotificationContext)
   if (!context) {
-    throw new Error('useNotifications must be used within a NotificationProvider')
+    throw new Error(
+      'useNotifications must be used within a NotificationProvider'
+    )
   }
   return context
 }
@@ -39,7 +45,8 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
       id: '1',
       type: 'info',
       title: 'New To-Do Added',
-      message: 'A new task "Finalize brand messaging" was added to My First Project',
+      message:
+        'A new task "Finalize brand messaging" was added to My First Project',
       timestamp: new Date(Date.now() - 1000 * 60 * 5), // 5 minutes ago
       category: 'todo',
       relatedItem: 'my-first-project',
@@ -68,7 +75,9 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
 
   const unreadCount = notifications.filter(n => !n.read).length
 
-  const addNotification = (notificationData: Omit<Notification, 'id' | 'timestamp' | 'read'>) => {
+  const addNotification = (
+    notificationData: Omit<Notification, 'id' | 'timestamp' | 'read'>
+  ) => {
     const newNotification: Notification = {
       ...notificationData,
       id: Date.now().toString(),
@@ -93,7 +102,9 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   }
 
   const removeNotification = (id: string) => {
-    setNotifications(prev => prev.filter(notification => notification.id !== id))
+    setNotifications(prev =>
+      prev.filter(notification => notification.id !== id)
+    )
   }
 
   const clearAll = () => {
