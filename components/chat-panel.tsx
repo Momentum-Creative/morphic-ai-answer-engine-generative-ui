@@ -17,6 +17,8 @@ import { ConceptNodes } from './concept-nodes'
 import { CreditsIndicator } from './credits-indicator'
 import { EmptyScreen } from './empty-screen'
 import { ProjectIndicator } from './project-indicator'
+import { NotionEditor } from './notion-editor'
+import { useConceptContext } from './concept-context'
 
 interface ChatPanelProps {
   input: string
@@ -49,6 +51,7 @@ export function ChatPanel({
   showScrollToBottomButton,
   scrollContainerRef
 }: ChatPanelProps) {
+  const { selectedNodeId } = useConceptContext()
   const [showEmptyScreen, setShowEmptyScreen] = useState(false)
   const router = useRouter()
   const inputRef = useRef<HTMLTextAreaElement>(null)
@@ -119,11 +122,28 @@ export function ChatPanel({
       )}
     >
       {messages.length === 0 && (
-        <div className="mb-10 flex flex-col items-center gap-4">
+        <div className="mb-10 flex flex-col items-center gap-6">
           <ProjectIndicator conceptProgress={messages.length > 0 ? 50 : 0} />
           <p className="text-center text-3xl font-semibold">
             Video Concept Copilot
           </p>
+
+          {/* Notion-style editor for concept development */}
+          <div className="w-full max-w-2xl mx-auto">
+            <NotionEditor
+              onSubmit={(content) => {
+                if (selectedNodeId) {
+                  // Create a formatted message that includes the node context
+                  const nodeMessage = `[${selectedNodeId.toUpperCase()}] ${content}`;
+                  append({
+                    role: 'user',
+                    content: nodeMessage
+                  })
+                }
+              }}
+              isLoading={isLoading}
+            />
+          </div>
         </div>
       )}
       <form
@@ -144,7 +164,10 @@ export function ChatPanel({
           </Button>
         )}
 
-        <div className="relative flex flex-col w-full gap-2 bg-muted rounded-3xl border border-input">
+        <div className={cn(
+          "relative flex flex-col w-full gap-2 bg-muted rounded-3xl border border-input",
+          messages.length === 0 && "opacity-60 pointer-events-none"
+        )}>
           <Textarea
             ref={inputRef}
             name="input"
