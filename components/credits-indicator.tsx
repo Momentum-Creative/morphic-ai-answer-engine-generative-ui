@@ -1,6 +1,6 @@
 'use client'
 
-import { Coins } from 'lucide-react'
+import { CircleDollarSign } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface CreditsIndicatorProps {
