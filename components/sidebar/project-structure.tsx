@@ -268,18 +268,27 @@ export function ProjectStructure() {
         <h4 className="text-xs font-medium text-muted-foreground mb-3">Content Sources</h4>
         <div className="space-y-2">
           {stockTags.map(({ key, name, icon: Icon, color, description }) => (
-            <Button
-              key={key}
-              variant="ghost"
-              size="sm"
-              className="w-full justify-start gap-2 px-2 py-1.5 h-auto text-sm hover:bg-accent/50 group"
-            >
-              <Icon className={cn("w-4 h-4 flex-shrink-0", color)} />
-              <span className="text-foreground">{name}</span>
-              <span className="text-xs text-muted-foreground ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
-                {description}
-              </span>
-            </Button>
+            <div key={key} className="relative group/content-source">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="w-full justify-start gap-2 px-2 py-1.5 h-auto text-sm hover:bg-accent/50"
+              >
+                <Icon className={cn("w-4 h-4 flex-shrink-0", color)} />
+                <span className="text-foreground">{name}</span>
+              </Button>
+
+              {/* Improved tooltip */}
+              <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 z-50 opacity-0 group-hover/content-source:opacity-100 transition-opacity duration-200 pointer-events-none">
+                <div className="bg-popover border border-border rounded-md shadow-lg px-2 py-1 whitespace-nowrap">
+                  <span className="text-xs text-popover-foreground font-medium">
+                    {description}
+                  </span>
+                  {/* Arrow */}
+                  <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-popover"></div>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </div>
