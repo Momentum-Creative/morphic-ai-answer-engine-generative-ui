@@ -14,10 +14,9 @@ import { useArtifact } from './artifact/artifact-context'
 import { Button } from './ui/button'
 import { IconLogo } from './ui/icons'
 import { ConceptNodes } from './concept-nodes'
+import { CreditsIndicator } from './credits-indicator'
 import { EmptyScreen } from './empty-screen'
-import { ModelSelector } from './model-selector'
 import { ProjectIndicator } from './project-indicator'
-import { SearchModeToggle } from './search-mode-toggle'
 
 interface ChatPanelProps {
   input: string
