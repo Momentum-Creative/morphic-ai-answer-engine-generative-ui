@@ -44,6 +44,14 @@ export function ProjectIndicator({ className }: ProjectIndicatorProps) {
 
   return (
     <div className={cn('flex flex-col items-center mb-6', className)}>
+      {/* Concept Name Display */}
+      {conceptName && (
+        <div className="mb-3 text-center">
+          <h2 className="text-xl font-bold text-foreground mb-1">"{conceptName}"</h2>
+          <p className="text-xs text-muted-foreground">AI-Generated Concept Name</p>
+        </div>
+      )}
+
       {/* Project Association Indicator */}
       <div className="flex items-center gap-2 px-4 py-2 bg-accent/50 rounded-full border border-border/50 backdrop-blur-sm">
         <Folder className="h-4 w-4 text-blue-500" />
@@ -76,7 +84,47 @@ export function ProjectIndicator({ className }: ProjectIndicatorProps) {
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
+
+        {/* Generate Concept Name Button */}
+        {!conceptName && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={generateConceptName}
+            disabled={isGeneratingName}
+            className="ml-2 h-7 text-xs"
+          >
+            {isGeneratingName ? (
+              <>
+                <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-current mr-1" />
+                Generating...
+              </>
+            ) : (
+              'Generate Name'
+            )}
+          </Button>
+        )}
       </div>
+
+      {/* Regenerate option for existing concept name */}
+      {conceptName && (
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={generateConceptName}
+          disabled={isGeneratingName}
+          className="mt-2 h-6 text-xs text-muted-foreground hover:text-foreground"
+        >
+          {isGeneratingName ? (
+            <>
+              <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-current mr-1" />
+              Regenerating...
+            </>
+          ) : (
+            'Regenerate Name'
+          )}
+        </Button>
+      )}
     </div>
   )
 }
