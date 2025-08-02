@@ -217,6 +217,47 @@ export function ProjectStructure() {
                   </div>
                 )
               })}
+
+              {/* To-do List Section */}
+              <div className="ml-6 space-y-1 mt-3 pt-3 border-t border-border/30">
+                <h5 className="text-xs font-medium text-muted-foreground px-2 mb-2">To-Do</h5>
+                {folders['my-first-project']?.todos?.map(todo => (
+                  <Button
+                    key={todo.id}
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      const newFolders = { ...folders }
+                      const todoIndex = newFolders['my-first-project'].todos!.findIndex(t => t.id === todo.id)
+                      newFolders['my-first-project'].todos![todoIndex].completed = !todo.completed
+                      setFolders(newFolders)
+                    }}
+                    className="w-full justify-start gap-2 px-2 py-1.5 h-auto text-sm hover:bg-accent/50"
+                  >
+                    {todo.completed ? (
+                      <CheckSquare className="w-4 h-4 text-green-500" />
+                    ) : (
+                      <Square className="w-4 h-4 text-muted-foreground" />
+                    )}
+                    <span className={cn(
+                      "truncate",
+                      todo.completed && "line-through text-muted-foreground"
+                    )}>
+                      {todo.name}
+                    </span>
+                  </Button>
+                ))}
+
+                {/* Add new todo button */}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full justify-start gap-2 px-2 py-1.5 h-auto text-sm text-muted-foreground hover:bg-accent/50"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Add task</span>
+                </Button>
+              </div>
             </div>
           )}
         </div>
