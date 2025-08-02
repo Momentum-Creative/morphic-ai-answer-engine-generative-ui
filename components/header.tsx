@@ -12,6 +12,7 @@ import { useSidebar } from '@/components/ui/sidebar'
 // import { Button } from './ui/button' // No longer needed directly here for Sign In button
 import { AnimatedLogo } from './animated-logo'
 import GuestMenu from './guest-menu' // Import the new GuestMenu component
+import { NotificationPanel } from './notification-panel'
 import UserMenu from './user-menu'
 
 interface HeaderProps {
