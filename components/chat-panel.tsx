@@ -184,37 +184,43 @@ export function ChatPanel({
           />
 
           {/* Bottom menu area */}
-          <div className="flex items-center justify-between p-3">
-            <div className="flex items-center gap-2">
-              <ModelSelector models={models || []} />
-              <SearchModeToggle />
-            </div>
-            <div className="flex items-center gap-2">
-              {messages.length > 0 && (
+          <div className="p-3 space-y-3">
+            {/* Concept nodes */}
+            <ConceptNodes />
+
+            {/* Traditional controls */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <ModelSelector models={models || []} />
+                <SearchModeToggle />
+              </div>
+              <div className="flex items-center gap-2">
+                {messages.length > 0 && (
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={handleNewChat}
+                    className="shrink-0 rounded-full group"
+                    type="button"
+                    disabled={isLoading || isToolInvocationInProgress()}
+                  >
+                    <MessageCirclePlus className="size-4 group-hover:rotate-12 transition-all" />
+                  </Button>
+                )}
                 <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={handleNewChat}
-                  className="shrink-0 rounded-full group"
-                  type="button"
-                  disabled={isLoading || isToolInvocationInProgress()}
+                  type={isLoading ? 'button' : 'submit'}
+                  size={'icon'}
+                  variant={'outline'}
+                  className={cn(isLoading && 'animate-pulse', 'rounded-full')}
+                  disabled={
+                    (input.length === 0 && !isLoading) ||
+                    isToolInvocationInProgress()
+                  }
+                  onClick={isLoading ? stop : undefined}
                 >
-                  <MessageCirclePlus className="size-4 group-hover:rotate-12 transition-all" />
+                  {isLoading ? <Square size={20} /> : <ArrowUp size={20} />}
                 </Button>
-              )}
-              <Button
-                type={isLoading ? 'button' : 'submit'}
-                size={'icon'}
-                variant={'outline'}
-                className={cn(isLoading && 'animate-pulse', 'rounded-full')}
-                disabled={
-                  (input.length === 0 && !isLoading) ||
-                  isToolInvocationInProgress()
-                }
-                onClick={isLoading ? stop : undefined}
-              >
-                {isLoading ? <Square size={20} /> : <ArrowUp size={20} />}
-              </Button>
+              </div>
             </div>
           </div>
         </div>
