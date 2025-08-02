@@ -84,7 +84,7 @@ export default async function RootLayout({
           <SplineBackground />
           <SidebarProvider defaultOpen>
             <div className="relative z-10">
-              <AppSidebar />
+              <AppSidebar user={user} />
             </div>
             <div className="flex flex-col flex-1 relative z-10">
               <Header user={user} />
