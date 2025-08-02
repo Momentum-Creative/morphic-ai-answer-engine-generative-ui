@@ -17,11 +17,30 @@ interface ProjectIndicatorProps {
 
 export function ProjectIndicator({ className }: ProjectIndicatorProps) {
   const [selectedProject, setSelectedProject] = useState('My First Project')
+  const [conceptName, setConceptName] = useState('')
+  const [isGeneratingName, setIsGeneratingName] = useState(false)
   const [availableProjects] = useState([
     'My First Project',
     'Brand Campaign 2024',
     'Product Launch Video'
   ])
+
+  const generateConceptName = () => {
+    setIsGeneratingName(true)
+    // Simulate LLM generation
+    setTimeout(() => {
+      const conceptNames = [
+        'Dynamic Brand Showcase',
+        'Emotional Connection Campaign',
+        'Bold Innovation Story',
+        'Authentic Voice Journey',
+        'Transformative Experience'
+      ]
+      const randomName = conceptNames[Math.floor(Math.random() * conceptNames.length)]
+      setConceptName(randomName)
+      setIsGeneratingName(false)
+    }, 2000)
+  }
 
   return (
     <div className={cn('flex flex-col items-center mb-6', className)}>
