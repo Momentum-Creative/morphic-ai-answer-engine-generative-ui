@@ -303,13 +303,13 @@ export function ConceptNodes() {
                       <div className={cn(
                         "h-20 rounded-lg border-2 border-dashed flex items-center justify-center",
                         nodesWithContent.has(nodeId)
-                          ? "bg-blue-50 border-blue-200 dark:bg-blue-950/20 dark:border-blue-800"
+                          ? `bg-${node.color.split('-')[1]}-50 border-${node.color.split('-')[1]}-200 dark:bg-${node.color.split('-')[1]}-950/20 dark:border-${node.color.split('-')[1]}-800`
                           : "bg-muted/30 border-border"
                       )}>
                         <span className={cn(
                           "text-xs",
                           nodesWithContent.has(nodeId)
-                            ? "text-blue-600 dark:text-blue-400 font-medium"
+                            ? `text-${node.color.split('-')[1]}-600 dark:text-${node.color.split('-')[1]}-400 font-medium`
                             : "text-muted-foreground"
                         )}>
                           {nodesWithContent.has(nodeId)
