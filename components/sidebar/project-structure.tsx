@@ -88,77 +88,131 @@ export function ProjectStructure() {
     }))
   }
 
-  const folderConfigs = [
+  const subFolderConfigs = [
     { key: 'briefs', name: 'Briefs', icon: FileText },
     { key: 'media', name: 'Media', icon: Folder },
     { key: 'reference', name: 'Reference', icon: Folder }
   ]
 
+  const stockTags = [
+    { key: 'stock-free', name: 'Stock', icon: Tag, color: 'text-green-500', description: 'Commercially free' },
+    { key: 'ai', name: 'AI', icon: Zap, color: 'text-purple-500', description: 'AI generated' },
+    { key: 'stock-paid', name: 'Stock $', icon: DollarSign, color: 'text-yellow-500', description: 'Licenseable stock' }
+  ]
+
   return (
-    <div className="space-y-2">
+    <div className="space-y-4">
       {/* Project Header */}
       <div className="px-2 py-2">
-        <h3 className="text-sm font-semibold text-foreground/80 mb-3">My Project</h3>
+        <h3 className="text-sm font-semibold text-foreground/80 mb-3">My Projects</h3>
       </div>
 
-      {/* Folder Structure */}
+      {/* Main Project Folder */}
       <div className="space-y-1">
-        {folderConfigs.map(({ key, name, icon: Icon }) => {
-          const folder = folders[key]
-          const isExpanded = folder?.isExpanded || false
+        <div className="space-y-1">
+          {/* My First Project Header */}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => toggleFolder('my-first-project')}
+            className="w-full justify-start gap-2 px-2 py-1.5 h-auto text-sm hover:bg-accent"
+          >
+            {folders['my-first-project']?.isExpanded ? (
+              <ChevronDown className="size-4" />
+            ) : (
+              <ChevronRight className="size-4" />
+            )}
+            {folders['my-first-project']?.isExpanded ? (
+              <FolderOpen className="size-4 text-indigo-500" />
+            ) : (
+              <Folder className="size-4 text-indigo-500" />
+            )}
+            <span>My First Project</span>
+          </Button>
 
-          return (
-            <div key={key} className="space-y-1">
-              {/* Folder Header */}
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => toggleFolder(key)}
-                className="w-full justify-start gap-2 px-2 py-1.5 h-auto text-sm hover:bg-accent"
-              >
-                {isExpanded ? (
-                  <ChevronDown className="size-4" />
-                ) : (
-                  <ChevronRight className="size-4" />
-                )}
-                {isExpanded ? (
-                  <FolderOpen className="size-4 text-blue-500" />
-                ) : (
-                  <Icon className="size-4 text-blue-500" />
-                )}
-                <span>{name}</span>
-                <Plus className="size-3 ml-auto opacity-0 group-hover:opacity-100 text-muted-foreground" />
-              </Button>
+          {/* Nested Subfolders */}
+          {folders['my-first-project']?.isExpanded && (
+            <div className="ml-6 space-y-1">
+              {subFolderConfigs.map(({ key, name, icon: Icon }) => {
+                const folder = folders[key]
+                const isExpanded = folder?.isExpanded || false
 
-              {/* Folder Contents */}
-              {isExpanded && (
-                <div className="ml-6 space-y-1">
-                  {folder.items.map(item => (
+                return (
+                  <div key={key} className="space-y-1">
+                    {/* Subfolder Header */}
                     <Button
-                      key={item.id}
                       variant="ghost"
                       size="sm"
-                      className="w-full justify-start gap-2 px-2 py-1.5 h-auto text-sm hover:bg-accent/50"
+                      onClick={() => toggleFolder(key)}
+                      className="w-full justify-start gap-2 px-2 py-1.5 h-auto text-sm hover:bg-accent"
                     >
-                      {getMediaIcon(item.type)}
-                      <span className="truncate">{item.name}</span>
+                      {isExpanded ? (
+                        <ChevronDown className="size-4" />
+                      ) : (
+                        <ChevronRight className="size-4" />
+                      )}
+                      {isExpanded ? (
+                        <FolderOpen className="size-4 text-blue-500" />
+                      ) : (
+                        <Icon className="size-4 text-blue-500" />
+                      )}
+                      <span>{name}</span>
+                      <Plus className="size-3 ml-auto opacity-0 group-hover:opacity-100 text-muted-foreground" />
                     </Button>
-                  ))}
-                  
-                  {/* Add new item button */}
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="w-full justify-start gap-2 px-2 py-1.5 h-auto text-sm text-muted-foreground hover:bg-accent/50"
-                  >
-                    <Plus className="size-4" />
-                    <span>Add {name.toLowerCase()}</span>
-                  </Button>
-                </div>
-              )}
+
+                    {/* Subfolder Contents */}
+                    {isExpanded && (
+                      <div className="ml-6 space-y-1">
+                        {folder.items.map(item => (
+                          <Button
+                            key={item.id}
+                            variant="ghost"
+                            size="sm"
+                            className="w-full justify-start gap-2 px-2 py-1.5 h-auto text-sm hover:bg-accent/50"
+                          >
+                            {getMediaIcon(item.type)}
+                            <span className="truncate">{item.name}</span>
+                          </Button>
+                        ))}
+
+                        {/* Add new item button */}
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="w-full justify-start gap-2 px-2 py-1.5 h-auto text-sm text-muted-foreground hover:bg-accent/50"
+                        >
+                          <Plus className="size-4" />
+                          <span>Add {name.toLowerCase()}</span>
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
             </div>
-          )
-        })}
+          )}
+        </div>
+      </div>
+
+      {/* Stock/AI Tags Section */}
+      <div className="px-2 py-4 border-t border-border/50">
+        <h4 className="text-xs font-medium text-muted-foreground mb-3">Content Sources</h4>
+        <div className="space-y-2">
+          {stockTags.map(({ key, name, icon: Icon, color, description }) => (
+            <Button
+              key={key}
+              variant="ghost"
+              size="sm"
+              className="w-full justify-start gap-2 px-2 py-1.5 h-auto text-sm hover:bg-accent/50 group"
+            >
+              <Icon className={cn("size-4", color)} />
+              <span className="text-foreground">{name}</span>
+              <span className="text-xs text-muted-foreground ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
+                {description}
+              </span>
+            </Button>
+          ))}
+        </div>
       </div>
 
       {/* Media Type Legend */}
