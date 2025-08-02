@@ -41,6 +41,7 @@ const conceptNodes: ConceptNode[] = [
 export function ConceptNodes() {
   const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set())
   const [hoveredNode, setHoveredNode] = useState<string | null>(null)
+  const [showTextInput, setShowTextInput] = useState<Set<string>>(new Set())
 
   const toggleNode = (nodeId: string) => {
     const newExpanded = new Set(expandedNodes)
