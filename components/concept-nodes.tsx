@@ -181,7 +181,7 @@ export function ConceptNodes() {
                     className={cn(
                       'h-10 w-10 rounded-full p-0 transition-all duration-200',
                       isExpanded && 'shadow-lg scale-110',
-                      nodesWithContent.has(node.id) && 'ring-1 ring-blue-400/50'
+                      nodesWithContent.has(node.id) && `ring-1 ring-${node.color.split('-')[1]}-400/50`
                     )}
                   >
                     <Icon className={cn('w-4 h-4', node.color)} />
