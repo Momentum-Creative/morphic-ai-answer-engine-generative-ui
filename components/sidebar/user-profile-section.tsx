@@ -67,7 +67,7 @@ export function UserProfileSection({ user, userType }: UserProfileSectionProps) 
             </p>
           )}
           
-          <div className="flex items-center gap-1 mt-1">
+          <div className="flex items-center gap-1 mt-1" suppressHydrationWarning>
             <div className={cn(
               "h-2 w-2 rounded-full",
               currentUserType === 'brand' ? "bg-blue-500" : "bg-purple-500"
