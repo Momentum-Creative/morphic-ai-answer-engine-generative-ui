@@ -90,7 +90,7 @@ export default async function RootLayout({
             </div>
             <div className="flex flex-col flex-1 relative z-10">
               <Header user={user} />
-              <main className="flex flex-1 min-h-0 overflow-auto">
+              <main className="flex flex-1 min-h-0">
                 <ArtifactRoot>{children}</ArtifactRoot>
               </main>
             </div>
