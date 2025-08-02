@@ -33,6 +33,37 @@ export function UserProfileSection({ user, userType, compact = false }: UserProf
     initials: user?.user_metadata?.full_name?.split(' ').map((n: string) => n[0]).join('') || 'K'
   }
 
+  if (compact) {
+    return (
+      <div className="flex items-center gap-2" suppressHydrationWarning>
+        {/* Compact Profile Avatar */}
+        <Avatar className="h-8 w-8">
+          <AvatarImage src={profileData.avatar} alt={profileData.name} />
+          <AvatarFallback className={cn(
+            "text-xs font-medium",
+            currentUserType === 'brand'
+              ? "bg-blue-500 text-white"
+              : "bg-purple-500 text-white"
+          )}>
+            {profileData.initials}
+          </AvatarFallback>
+        </Avatar>
+
+        {/* Compact Profile Info */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-1">
+            <p className="text-sm font-semibold text-foreground truncate">
+              {profileData.name}
+            </p>
+            {currentUserType === 'brand' && (
+              <Building2 className="h-3 w-3 text-blue-500 flex-shrink-0" />
+            )}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="px-3 py-4 border-b border-border/50" suppressHydrationWarning>
       <div className="flex items-center gap-3">
@@ -61,13 +92,13 @@ export function UserProfileSection({ user, userType, compact = false }: UserProf
               )}
             </div>
           </div>
-          
+
           {profileData.company && (
             <p className="text-xs text-muted-foreground truncate">
               {profileData.company}
             </p>
           )}
-          
+
           <div className="flex items-center gap-1 mt-1" suppressHydrationWarning>
             <div className={cn(
               "h-2 w-2 rounded-full",
