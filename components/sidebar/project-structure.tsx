@@ -267,10 +267,16 @@ export function ProjectStructure() {
                       const todoIndex = newFolders[
                         'my-first-project'
                       ].todos!.findIndex(t => t.id === todo.id)
+                      const wasCompleted = todo.completed
                       newFolders['my-first-project'].todos![
                         todoIndex
                       ].completed = !todo.completed
                       setFolders(newFolders)
+
+                      // Trigger notification
+                      if (!wasCompleted) {
+                        notifyTodoCompleted(todo.name, 'My First Project')
+                      }
                     }}
                     className="w-full justify-start gap-2 px-2 py-1.5 h-auto text-sm hover:bg-accent/50"
                   >
