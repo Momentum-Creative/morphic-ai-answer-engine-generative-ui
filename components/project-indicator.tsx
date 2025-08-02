@@ -35,13 +35,23 @@ export function ProjectIndicator({ className, conceptProgress = 0 }: ProjectIndi
         'Emotional Connection Campaign',
         'Bold Innovation Story',
         'Authentic Voice Journey',
-        'Transformative Experience'
+        'Transformative Experience',
+        'Creative Momentum',
+        'Visionary Impact',
+        'Breakthrough Narrative'
       ]
       const randomName = conceptNames[Math.floor(Math.random() * conceptNames.length)]
       setConceptName(randomName)
       setIsGeneratingName(false)
     }, 2000)
   }
+
+  // Auto-generate concept name when progress reaches 30% and no name exists
+  useEffect(() => {
+    if (conceptProgress >= 30 && !conceptName && !isGeneratingName) {
+      generateConceptName()
+    }
+  }, [conceptProgress, conceptName, isGeneratingName])
 
   return (
     <div className={cn('flex flex-col items-center mb-6', className)}>
