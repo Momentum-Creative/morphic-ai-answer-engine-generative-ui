@@ -82,7 +82,8 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SplineBackground />
+          <NotificationProvider>
+            <SplineBackground />
           <SidebarProvider defaultOpen>
             <div className="relative z-10">
               <AppSidebar user={user} />
@@ -96,7 +97,8 @@ export default async function RootLayout({
           </SidebarProvider>
           <Toaster />
           <Analytics />
-          <BrandCreatorWrapper />
+            <BrandCreatorWrapper />
+          </NotificationProvider>
         </ThemeProvider>
       </body>
     </html>
