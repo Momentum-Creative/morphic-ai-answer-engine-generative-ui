@@ -54,9 +54,11 @@ export function UserProfileSection({ user, userType }: UserProfileSectionProps) 
             <p className="text-sm font-semibold text-foreground truncate">
               {profileData.name}
             </p>
-            {currentUserType === 'brand' && (
-              <Building2 className="h-3 w-3 text-blue-500 flex-shrink-0" />
-            )}
+            <div className="h-3 w-3 flex-shrink-0">
+              {currentUserType === 'brand' && (
+                <Building2 className="h-3 w-3 text-blue-500" />
+              )}
+            </div>
           </div>
           
           {profileData.company && (
