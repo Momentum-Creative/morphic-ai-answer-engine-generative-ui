@@ -166,7 +166,7 @@ export function ChatPanel({
 
         <div className={cn(
           "relative flex flex-col w-full gap-2 bg-muted rounded-3xl border border-input",
-          messages.length === 0 && "opacity-60 pointer-events-none"
+          messages.length === 0 && "opacity-60"
         )}>
           <Textarea
             ref={inputRef}
