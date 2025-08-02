@@ -12,7 +12,7 @@ interface UserProfileSectionProps {
   compact?: boolean
 }
 
-export function UserProfileSection({ user, userType }: UserProfileSectionProps) {
+export function UserProfileSection({ user, userType, compact = false }: UserProfileSectionProps) {
   const [currentUserType, setCurrentUserType] = useState<'brand' | 'creator'>('creator')
 
   // Handle client-side localStorage access after hydration
