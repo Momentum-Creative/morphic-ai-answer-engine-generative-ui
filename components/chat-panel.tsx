@@ -189,6 +189,9 @@ export function ChatPanel({
 
           {/* Bottom menu area */}
           <div className="p-3 space-y-3">
+            {/* Subtle divider */}
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+
             {/* Concept nodes */}
             <ConceptNodes />
 
@@ -210,19 +213,37 @@ export function ChatPanel({
                     <MessageCirclePlus className="size-4 group-hover:rotate-12 transition-all" />
                   </Button>
                 )}
-                <Button
-                  type={isLoading ? 'button' : 'submit'}
-                  size={'icon'}
-                  variant={'outline'}
-                  className={cn(isLoading && 'animate-pulse', 'rounded-full')}
-                  disabled={
-                    (input.length === 0 && !isLoading) ||
-                    isToolInvocationInProgress()
-                  }
-                  onClick={isLoading ? stop : undefined}
-                >
-                  {isLoading ? <Square size={20} /> : <ArrowUp size={20} />}
-                </Button>
+
+                {/* Conditional Generate Concept Button */}
+                {(() => {
+                  // Check if enough key nodes have content - simulated for now
+                  const hasEnoughContent = input.length > 0 || messages.length > 0
+
+                  return hasEnoughContent ? (
+                    <Button
+                      type="button"
+                      size="default"
+                      className="bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white font-medium rounded-lg px-4 py-2 shadow-lg hover:shadow-xl transition-all duration-200"
+                      disabled={isLoading || isToolInvocationInProgress()}
+                    >
+                      Generate Concept
+                    </Button>
+                  ) : (
+                    <Button
+                      type={isLoading ? 'button' : 'submit'}
+                      size={'icon'}
+                      variant={'outline'}
+                      className={cn(isLoading && 'animate-pulse', 'rounded-full')}
+                      disabled={
+                        (input.length === 0 && !isLoading) ||
+                        isToolInvocationInProgress()
+                      }
+                      onClick={isLoading ? stop : undefined}
+                    >
+                      {isLoading ? <Square size={20} /> : <ArrowUp size={20} />}
+                    </Button>
+                  )
+                })()}
               </div>
             </div>
           </div>
