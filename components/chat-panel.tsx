@@ -153,7 +153,7 @@ export function ChatPanel({
             tabIndex={0}
             onCompositionStart={handleCompositionStart}
             onCompositionEnd={handleCompositionEnd}
-            placeholder="share existing campaign ideas, strategy, or specific concepts..."
+            placeholder="ask me anything and I'll make it happen"
             spellCheck={false}
             value={input}
             disabled={isLoading || isToolInvocationInProgress()}
