@@ -254,76 +254,99 @@ export function ConceptNodes() {
                     {node.description}
                   </p>
 
-                  {/* Placeholder content areas */}
-                  <div className="space-y-2">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => toggleTextInput(nodeId)}
-                      className="flex items-center gap-2 h-auto p-2 w-full justify-start hover:bg-accent/50"
-                    >
-                      <Plus className="w-3 h-3 text-muted-foreground" />
-                      <span className="text-xs text-muted-foreground">
-                        Add {node.name.toLowerCase()} details
-                      </span>
-                    </Button>
-
-                    {/* Animated text input window */}
-                    {showTextInput.has(nodeId) && (
-                      <div className="animate-in slide-in-from-top-2 duration-300 space-y-2">
-                        <textarea
-                          id={`textarea-${nodeId}`}
-                          placeholder={`Enter ${node.name.toLowerCase()} details...`}
-                          className="w-full h-20 p-2 text-xs bg-background border border-border rounded-lg resize-none focus:outline-none focus:ring-1 focus:ring-ring"
-                          autoFocus
-                        />
-                        <div className="flex gap-1">
-                          <Button
-                            variant="default"
-                            size="sm"
-                            className="h-6 text-xs"
-                            onClick={() => {
-                              const textarea = document.getElementById(`textarea-${nodeId}`) as HTMLTextAreaElement
-                              if (textarea) {
-                                saveContent(nodeId, textarea.value)
-                              }
-                            }}
-                          >
-                            Save
-                          </Button>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="h-6 text-xs"
-                            onClick={() => toggleTextInput(nodeId)}
-                          >
-                            Cancel
-                          </Button>
+                  {/* Content areas */}
+                  {nodeId === 'brand' ? (
+                    /* Brand-specific subsections */
+                    <div className="space-y-3">
+                      {[
+                        { id: 'company-name', label: 'Company Name', placeholder: 'Enter company name...' },
+                        { id: 'campaign-name', label: 'Campaign Name', placeholder: 'Enter campaign name...' },
+                        { id: 'campaign-goals', label: 'Campaign Goals', placeholder: 'Define campaign objectives...' },
+                        { id: 'products-services', label: 'Product(s) or Services', placeholder: 'List products or services...' },
+                        { id: 'social-channels', label: 'Social Channels', placeholder: 'Specify social media channels...' },
+                        { id: 'brand-assets', label: 'Brand Assets (logo, brand guide, fonts)', placeholder: 'Upload or describe brand assets...' }
+                      ].map((subsection) => (
+                        <div key={subsection.id} className="border border-border/30 rounded-lg p-3 space-y-2">
+                          <h4 className="text-xs font-medium text-foreground">{subsection.label}</h4>
+                          <textarea
+                            placeholder={subsection.placeholder}
+                            className="w-full h-16 p-2 text-xs bg-background border border-border rounded resize-none focus:outline-none focus:ring-1 focus:ring-ring"
+                          />
                         </div>
-                      </div>
-                    )}
-
-                    {!showTextInput.has(nodeId) && (
-                      <div className={cn(
-                        "h-20 rounded-lg border-2 border-dashed flex items-center justify-center",
-                        nodesWithContent.has(nodeId)
-                          ? `bg-${node.color.split('-')[1]}-50 border-${node.color.split('-')[1]}-200 dark:bg-${node.color.split('-')[1]}-950/20 dark:border-${node.color.split('-')[1]}-800`
-                          : "bg-muted/30 border-border"
-                      )}>
-                        <span className={cn(
-                          "text-xs",
-                          nodesWithContent.has(nodeId)
-                            ? `text-${node.color.split('-')[1]}-600 dark:text-${node.color.split('-')[1]}-400 font-medium`
-                            : "text-muted-foreground"
-                        )}>
-                          {nodesWithContent.has(nodeId)
-                            ? `${node.name} content added ✓`
-                            : "Drop content here"
-                          }
+                      ))}
+                    </div>
+                  ) : (
+                    /* Original content for other nodes */
+                    <div className="space-y-2">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => toggleTextInput(nodeId)}
+                        className="flex items-center gap-2 h-auto p-2 w-full justify-start hover:bg-accent/50"
+                      >
+                        <Plus className="w-3 h-3 text-muted-foreground" />
+                        <span className="text-xs text-muted-foreground">
+                          Add {node.name.toLowerCase()} details
                         </span>
-                      </div>
-                    )}
-                  </div>
+                      </Button>
+
+                      {/* Animated text input window */}
+                      {showTextInput.has(nodeId) && (
+                        <div className="animate-in slide-in-from-top-2 duration-300 space-y-2">
+                          <textarea
+                            id={`textarea-${nodeId}`}
+                            placeholder={`Enter ${node.name.toLowerCase()} details...`}
+                            className="w-full h-20 p-2 text-xs bg-background border border-border rounded-lg resize-none focus:outline-none focus:ring-1 focus:ring-ring"
+                            autoFocus
+                          />
+                          <div className="flex gap-1">
+                            <Button
+                              variant="default"
+                              size="sm"
+                              className="h-6 text-xs"
+                              onClick={() => {
+                                const textarea = document.getElementById(`textarea-${nodeId}`) as HTMLTextAreaElement
+                                if (textarea) {
+                                  saveContent(nodeId, textarea.value)
+                                }
+                              }}
+                            >
+                              Save
+                            </Button>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="h-6 text-xs"
+                              onClick={() => toggleTextInput(nodeId)}
+                            >
+                              Cancel
+                            </Button>
+                          </div>
+                        </div>
+                      )}
+
+                      {!showTextInput.has(nodeId) && (
+                        <div className={cn(
+                          "h-20 rounded-lg border-2 border-dashed flex items-center justify-center",
+                          nodesWithContent.has(nodeId)
+                            ? `bg-${node.color.split('-')[1]}-50 border-${node.color.split('-')[1]}-200 dark:bg-${node.color.split('-')[1]}-950/20 dark:border-${node.color.split('-')[1]}-800`
+                            : "bg-muted/30 border-border"
+                        )}>
+                          <span className={cn(
+                            "text-xs",
+                            nodesWithContent.has(nodeId)
+                              ? `text-${node.color.split('-')[1]}-600 dark:text-${node.color.split('-')[1]}-400 font-medium`
+                              : "text-muted-foreground"
+                          )}>
+                            {nodesWithContent.has(nodeId)
+                              ? `${node.name} content added ✓`
+                              : "Drop content here"
+                            }
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   {/* Quick actions */}
                   <div className="flex gap-1 pt-2">
