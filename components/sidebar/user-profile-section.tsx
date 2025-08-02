@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils'
 interface UserProfileSectionProps {
   user?: User | null
   userType?: 'brand' | 'creator' | null
+  compact?: boolean
 }
 
 export function UserProfileSection({ user, userType }: UserProfileSectionProps) {
