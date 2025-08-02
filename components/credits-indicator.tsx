@@ -23,7 +23,7 @@ export function CreditsIndicator({
         className
       )}
     >
-      <Coins className="w-4 h-4 text-yellow-500" />
+      <CircleDollarSign className="w-4 h-4 text-yellow-500" />
       <div className="flex flex-col gap-1">
         <span className="text-xs font-medium text-foreground">
           {used} of {total} credits
