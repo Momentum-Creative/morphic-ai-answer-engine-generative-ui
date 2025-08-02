@@ -27,15 +27,78 @@ interface ConceptNode {
 }
 
 const conceptNodes: ConceptNode[] = [
-  { id: 'brand', name: 'Brand', shortName: 'B', icon: Building2, color: 'text-blue-500', description: 'Brand guidelines and identity' },
-  { id: 'trend', name: 'Trend', shortName: 'T', icon: TrendingUp, color: 'text-green-500', description: 'Current trends and insights' },
-  { id: 'tone', name: 'Tone', shortName: 'To', icon: Palette, color: 'text-purple-500', description: 'Voice and tone direction' },
-  { id: 'references', name: 'References', shortName: 'R', icon: BookOpen, color: 'text-orange-500', description: 'Reference materials' },
-  { id: 'inspo', name: 'Inspo', shortName: 'I', icon: Lightbulb, color: 'text-yellow-500', description: 'Creative inspiration' },
-  { id: 'story', name: 'Story', shortName: 'S', icon: FileText, color: 'text-red-500', description: 'Narrative structure' },
-  { id: 'style', name: 'Style', shortName: 'St', icon: Brush, color: 'text-pink-500', description: 'Visual style guide' },
-  { id: 'platform', name: 'Platform', shortName: 'P', icon: Monitor, color: 'text-indigo-500', description: 'Platform specifications' },
-  { id: 'production', name: 'Production Guide', shortName: 'PG', icon: ClipboardList, color: 'text-teal-500', description: 'Production requirements' }
+  {
+    id: 'brand',
+    name: 'Brand',
+    shortName: 'B',
+    icon: Building2,
+    color: 'text-blue-500',
+    description: 'Brand guidelines and identity'
+  },
+  {
+    id: 'trend',
+    name: 'Trend',
+    shortName: 'T',
+    icon: TrendingUp,
+    color: 'text-green-500',
+    description: 'Current trends and insights'
+  },
+  {
+    id: 'tone',
+    name: 'Tone',
+    shortName: 'To',
+    icon: Palette,
+    color: 'text-purple-500',
+    description: 'Voice and tone direction'
+  },
+  {
+    id: 'references',
+    name: 'References',
+    shortName: 'R',
+    icon: BookOpen,
+    color: 'text-orange-500',
+    description: 'Reference materials'
+  },
+  {
+    id: 'inspo',
+    name: 'Inspo',
+    shortName: 'I',
+    icon: Lightbulb,
+    color: 'text-yellow-500',
+    description: 'Creative inspiration'
+  },
+  {
+    id: 'story',
+    name: 'Story',
+    shortName: 'S',
+    icon: FileText,
+    color: 'text-red-500',
+    description: 'Narrative structure'
+  },
+  {
+    id: 'style',
+    name: 'Style',
+    shortName: 'St',
+    icon: Brush,
+    color: 'text-pink-500',
+    description: 'Visual style guide'
+  },
+  {
+    id: 'platform',
+    name: 'Platform',
+    shortName: 'P',
+    icon: Monitor,
+    color: 'text-indigo-500',
+    description: 'Platform specifications'
+  },
+  {
+    id: 'production',
+    name: 'Production Guide',
+    shortName: 'PG',
+    icon: ClipboardList,
+    color: 'text-teal-500',
+    description: 'Production requirements'
+  }
 ]
 
 export function ConceptNodes() {
@@ -86,17 +149,17 @@ export function ConceptNodes() {
               {/* Node button */}
               <div className="relative">
                 <Button
-                  variant={isExpanded ? "default" : "ghost"}
+                  variant={isExpanded ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => toggleNode(node.id)}
                   onMouseEnter={() => setHoveredNode(node.id)}
                   onMouseLeave={() => setHoveredNode(null)}
                   className={cn(
-                    "h-10 w-10 rounded-full p-0 transition-all duration-200",
-                    isExpanded && "shadow-lg scale-110"
+                    'h-10 w-10 rounded-full p-0 transition-all duration-200',
+                    isExpanded && 'shadow-lg scale-110'
                   )}
                 >
-                  <Icon className={cn("w-4 h-4", node.color)} />
+                  <Icon className={cn('w-4 h-4', node.color)} />
                 </Button>
 
                 {/* Hover tooltip */}
@@ -121,9 +184,12 @@ export function ConceptNodes() {
 
       {/* Expanded windows */}
       {expandedNodes.size > 0 && (
-        <div className="mt-4 grid gap-4" style={{
-          gridTemplateColumns: `repeat(${Math.min(expandedNodes.size, 3)}, 1fr)`
-        }}>
+        <div
+          className="mt-4 grid gap-4"
+          style={{
+            gridTemplateColumns: `repeat(${Math.min(expandedNodes.size, 3)}, 1fr)`
+          }}
+        >
           {Array.from(expandedNodes).map(nodeId => {
             const node = conceptNodes.find(n => n.id === nodeId)
             if (!node) return null
@@ -139,7 +205,7 @@ export function ConceptNodes() {
                 {/* Window header */}
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
-                    <Icon className={cn("w-4 h-4", node.color)} />
+                    <Icon className={cn('w-4 h-4', node.color)} />
                     <h3 className="font-semibold text-sm">{node.name}</h3>
                   </div>
                   <Button
@@ -154,7 +220,9 @@ export function ConceptNodes() {
 
                 {/* Window content */}
                 <div className="space-y-3">
-                  <p className="text-xs text-muted-foreground">{node.description}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {node.description}
+                  </p>
 
                   {/* Placeholder content areas */}
                   <div className="space-y-2">
@@ -165,7 +233,9 @@ export function ConceptNodes() {
                       className="flex items-center gap-2 h-auto p-2 w-full justify-start hover:bg-accent/50"
                     >
                       <Plus className="w-3 h-3 text-muted-foreground" />
-                      <span className="text-xs text-muted-foreground">Add {node.name.toLowerCase()} details</span>
+                      <span className="text-xs text-muted-foreground">
+                        Add {node.name.toLowerCase()} details
+                      </span>
                     </Button>
 
                     {/* Animated text input window */}
@@ -177,7 +247,11 @@ export function ConceptNodes() {
                           autoFocus
                         />
                         <div className="flex gap-1">
-                          <Button variant="default" size="sm" className="h-6 text-xs">
+                          <Button
+                            variant="default"
+                            size="sm"
+                            className="h-6 text-xs"
+                          >
                             Save
                           </Button>
                           <Button
@@ -194,7 +268,9 @@ export function ConceptNodes() {
 
                     {!showTextInput.has(nodeId) && (
                       <div className="h-20 bg-muted/30 rounded-lg border-2 border-dashed border-border flex items-center justify-center">
-                        <span className="text-xs text-muted-foreground">Drop content here</span>
+                        <span className="text-xs text-muted-foreground">
+                          Drop content here
+                        </span>
                       </div>
                     )}
                   </div>

@@ -111,11 +111,41 @@ export function ProjectStructure() {
   ]
 
   const stockTags = [
-    { key: 'stock-free', name: 'Stock', icon: Tag, color: 'text-green-500', description: 'Commercially free' },
-    { key: 'ai', name: 'AI', icon: Zap, color: 'text-purple-500', description: 'AI generated' },
-    { key: 'stock-paid', name: 'Licenseable', icon: DollarSign, color: 'text-yellow-500', description: 'Licenseable stock' },
-    { key: 'brand-footage', name: 'Brand Media', icon: Crown, color: 'text-blue-600', description: 'Company owned content' },
-    { key: 'my-footage', name: 'My Media', icon: User, color: 'text-indigo-600', description: 'Personal media library' }
+    {
+      key: 'stock-free',
+      name: 'Stock',
+      icon: Tag,
+      color: 'text-green-500',
+      description: 'Commercially free'
+    },
+    {
+      key: 'ai',
+      name: 'AI',
+      icon: Zap,
+      color: 'text-purple-500',
+      description: 'AI generated'
+    },
+    {
+      key: 'stock-paid',
+      name: 'Licenseable',
+      icon: DollarSign,
+      color: 'text-yellow-500',
+      description: 'Licenseable stock'
+    },
+    {
+      key: 'brand-footage',
+      name: 'Brand Media',
+      icon: Crown,
+      color: 'text-blue-600',
+      description: 'Company owned content'
+    },
+    {
+      key: 'my-footage',
+      name: 'My Media',
+      icon: User,
+      color: 'text-indigo-600',
+      description: 'Personal media library'
+    }
   ]
 
   return (
@@ -123,7 +153,9 @@ export function ProjectStructure() {
       {/* Project Header */}
       <div className="px-2 py-2">
         <div className="flex items-center justify-between mb-4 group/projects">
-          <h3 className="text-sm font-semibold text-foreground/80">My Projects</h3>
+          <h3 className="text-sm font-semibold text-foreground/80">
+            My Projects
+          </h3>
           <Button
             variant="ghost"
             size="sm"
@@ -220,7 +252,9 @@ export function ProjectStructure() {
 
               {/* To-do List Section */}
               <div className="ml-6 space-y-1 mt-3 pt-3 border-t border-border/30">
-                <h5 className="text-xs font-medium text-muted-foreground px-2 mb-2">To-Do</h5>
+                <h5 className="text-xs font-medium text-muted-foreground px-2 mb-2">
+                  To-Do
+                </h5>
                 {folders['my-first-project']?.todos?.map(todo => (
                   <Button
                     key={todo.id}
@@ -228,8 +262,12 @@ export function ProjectStructure() {
                     size="sm"
                     onClick={() => {
                       const newFolders = { ...folders }
-                      const todoIndex = newFolders['my-first-project'].todos!.findIndex(t => t.id === todo.id)
-                      newFolders['my-first-project'].todos![todoIndex].completed = !todo.completed
+                      const todoIndex = newFolders[
+                        'my-first-project'
+                      ].todos!.findIndex(t => t.id === todo.id)
+                      newFolders['my-first-project'].todos![
+                        todoIndex
+                      ].completed = !todo.completed
                       setFolders(newFolders)
                     }}
                     className="w-full justify-start gap-2 px-2 py-1.5 h-auto text-sm hover:bg-accent/50"
@@ -239,10 +277,12 @@ export function ProjectStructure() {
                     ) : (
                       <Square className="w-4 h-4 text-muted-foreground" />
                     )}
-                    <span className={cn(
-                      "truncate",
-                      todo.completed && "line-through text-muted-foreground"
-                    )}>
+                    <span
+                      className={cn(
+                        'truncate',
+                        todo.completed && 'line-through text-muted-foreground'
+                      )}
+                    >
                       {todo.name}
                     </span>
                   </Button>
@@ -265,7 +305,9 @@ export function ProjectStructure() {
 
       {/* Stock/AI Tags Section */}
       <div className="px-2 py-4 border-t border-border/50">
-        <h4 className="text-xs font-medium text-muted-foreground mb-3">Content Sources</h4>
+        <h4 className="text-xs font-medium text-muted-foreground mb-3">
+          Content Sources
+        </h4>
         <div className="space-y-2">
           {stockTags.map(({ key, name, icon: Icon, color, description }) => (
             <div key={key} className="relative group/content-source">
@@ -274,7 +316,7 @@ export function ProjectStructure() {
                 size="sm"
                 className="w-full justify-start gap-2 px-2 py-1.5 h-auto text-sm hover:bg-accent/50"
               >
-                <Icon className={cn("w-4 h-4 flex-shrink-0", color)} />
+                <Icon className={cn('w-4 h-4 flex-shrink-0', color)} />
                 <span className="text-foreground">{name}</span>
               </Button>
 
@@ -295,7 +337,9 @@ export function ProjectStructure() {
 
       {/* Media Type Legend */}
       <div className="px-2 py-4 border-t border-border/50 mt-6">
-        <h4 className="text-xs font-medium text-muted-foreground mb-2">Media Types</h4>
+        <h4 className="text-xs font-medium text-muted-foreground mb-2">
+          Media Types
+        </h4>
         <div className="grid grid-cols-2 gap-1 text-xs">
           <div className="flex items-center gap-1">
             <Music className="size-3 text-purple-500" />

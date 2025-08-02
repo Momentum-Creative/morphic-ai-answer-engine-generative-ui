@@ -8,7 +8,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from './ui/dropdown-menu'
 
 interface ProjectIndicatorProps {
@@ -42,7 +42,7 @@ export function ProjectIndicator({ className }: ProjectIndicatorProps) {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="center" className="min-w-[200px]">
-            {availableProjects.map((project) => (
+            {availableProjects.map(project => (
               <DropdownMenuItem
                 key={project}
                 onClick={() => setSelectedProject(project)}

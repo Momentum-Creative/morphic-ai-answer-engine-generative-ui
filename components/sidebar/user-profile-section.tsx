@@ -12,25 +12,39 @@ interface UserProfileSectionProps {
   compact?: boolean
 }
 
-export function UserProfileSection({ user, userType, compact = false }: UserProfileSectionProps) {
-  const [currentUserType, setCurrentUserType] = useState<'brand' | 'creator'>('creator')
+export function UserProfileSection({
+  user,
+  userType,
+  compact = false
+}: UserProfileSectionProps) {
+  const [currentUserType, setCurrentUserType] = useState<'brand' | 'creator'>(
+    'creator'
+  )
 
   // Handle client-side localStorage access after hydration
   useEffect(() => {
     if (userType) {
       setCurrentUserType(userType)
     } else {
-      const storedUserType = localStorage.getItem('user-type') as 'brand' | 'creator' | null
+      const storedUserType = localStorage.getItem('user-type') as
+        | 'brand'
+        | 'creator'
+        | null
       setCurrentUserType(storedUserType || 'creator')
     }
   }, [userType])
 
   // Mock data for demonstration - in real app this would come from user data
   const profileData = {
-    name: user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Kareem',
+    name:
+      user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Kareem',
     company: currentUserType === 'brand' ? 'Momentum Creative' : undefined,
     avatar: user?.user_metadata?.avatar_url || '',
-    initials: user?.user_metadata?.full_name?.split(' ').map((n: string) => n[0]).join('') || 'K'
+    initials:
+      user?.user_metadata?.full_name
+        ?.split(' ')
+        .map((n: string) => n[0])
+        .join('') || 'K'
   }
 
   if (compact) {
@@ -41,12 +55,14 @@ export function UserProfileSection({ user, userType, compact = false }: UserProf
           {/* Compact Profile Avatar */}
           <Avatar className="h-8 w-8">
             <AvatarImage src={profileData.avatar} alt={profileData.name} />
-            <AvatarFallback className={cn(
-              "text-xs font-medium",
-              currentUserType === 'brand'
-                ? "bg-blue-500 text-white"
-                : "bg-purple-500 text-white"
-            )}>
+            <AvatarFallback
+              className={cn(
+                'text-xs font-medium',
+                currentUserType === 'brand'
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-purple-500 text-white'
+              )}
+            >
               {profileData.initials}
             </AvatarFallback>
           </Avatar>
@@ -62,31 +78,44 @@ export function UserProfileSection({ user, userType, compact = false }: UserProf
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <Avatar className="h-10 w-10">
-                    <AvatarImage src={profileData.avatar} alt={profileData.name} />
-                    <AvatarFallback className={cn(
-                      "text-sm font-medium",
-                      currentUserType === 'brand'
-                        ? "bg-blue-500 text-white"
-                        : "bg-purple-500 text-white"
-                    )}>
+                    <AvatarImage
+                      src={profileData.avatar}
+                      alt={profileData.name}
+                    />
+                    <AvatarFallback
+                      className={cn(
+                        'text-sm font-medium',
+                        currentUserType === 'brand'
+                          ? 'bg-blue-500 text-white'
+                          : 'bg-purple-500 text-white'
+                      )}
+                    >
                       {profileData.initials}
                     </AvatarFallback>
                   </Avatar>
                   <div>
                     <p className="font-semibold text-sm">{profileData.name}</p>
                     {profileData.company && (
-                      <p className="text-xs text-muted-foreground">{profileData.company}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {profileData.company}
+                      </p>
                     )}
                   </div>
                 </div>
 
                 <div className="space-y-1 pt-2 border-t border-border">
                   <div className="flex items-center gap-2">
-                    <div className={cn(
-                      "h-2 w-2 rounded-full",
-                      currentUserType === 'brand' ? "bg-blue-500" : "bg-purple-500"
-                    )} />
-                    <span className="text-xs capitalize">{currentUserType} Account</span>
+                    <div
+                      className={cn(
+                        'h-2 w-2 rounded-full',
+                        currentUserType === 'brand'
+                          ? 'bg-blue-500'
+                          : 'bg-purple-500'
+                      )}
+                    />
+                    <span className="text-xs capitalize">
+                      {currentUserType} Account
+                    </span>
                   </div>
 
                   <div className="text-xs text-muted-foreground">
@@ -109,17 +138,22 @@ export function UserProfileSection({ user, userType, compact = false }: UserProf
   }
 
   return (
-    <div className="px-3 py-4 border-b border-border/50" suppressHydrationWarning>
+    <div
+      className="px-3 py-4 border-b border-border/50"
+      suppressHydrationWarning
+    >
       <div className="flex items-center gap-3">
         {/* Profile Avatar */}
         <Avatar className="h-10 w-10">
           <AvatarImage src={profileData.avatar} alt={profileData.name} />
-          <AvatarFallback className={cn(
-            "text-sm font-medium",
-            currentUserType === 'brand'
-              ? "bg-blue-500 text-white"
-              : "bg-purple-500 text-white"
-          )}>
+          <AvatarFallback
+            className={cn(
+              'text-sm font-medium',
+              currentUserType === 'brand'
+                ? 'bg-blue-500 text-white'
+                : 'bg-purple-500 text-white'
+            )}
+          >
             {profileData.initials}
           </AvatarFallback>
         </Avatar>
@@ -143,11 +177,16 @@ export function UserProfileSection({ user, userType, compact = false }: UserProf
             </p>
           )}
 
-          <div className="flex items-center gap-1 mt-1" suppressHydrationWarning>
-            <div className={cn(
-              "h-2 w-2 rounded-full",
-              currentUserType === 'brand' ? "bg-blue-500" : "bg-purple-500"
-            )} />
+          <div
+            className="flex items-center gap-1 mt-1"
+            suppressHydrationWarning
+          >
+            <div
+              className={cn(
+                'h-2 w-2 rounded-full',
+                currentUserType === 'brand' ? 'bg-blue-500' : 'bg-purple-500'
+              )}
+            />
             <span className="text-xs text-muted-foreground capitalize">
               {currentUserType}
             </span>
