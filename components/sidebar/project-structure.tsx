@@ -207,7 +207,7 @@ export function ProjectStructure() {
               size="sm"
               className="w-full justify-start gap-2 px-2 py-1.5 h-auto text-sm hover:bg-accent/50 group"
             >
-              <Icon className={cn("size-4", color)} />
+              <Icon className={cn("w-4 h-4 flex-shrink-0", color)} />
               <span className="text-foreground">{name}</span>
               <span className="text-xs text-muted-foreground ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
                 {description}
