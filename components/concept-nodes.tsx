@@ -230,7 +230,6 @@ export function ConceptNodes() {
               <div
                 key={nodeId}
                 className="bg-background border border-border rounded-xl p-4 shadow-lg backdrop-blur-sm relative"
-                style={{ minHeight: '200px' }}
               >
                 {/* Window header */}
                 <div className="flex items-center justify-between mb-3">
