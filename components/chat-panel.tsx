@@ -216,17 +216,25 @@ export function ChatPanel({
 
                 {/* Conditional Generate Concept Button */}
                 {(() => {
-                  // Check if enough key nodes have content - simulated for now
-                  const hasEnoughContent = input.length > 0 || messages.length > 0
+                  // Check if enough key nodes have content
+                  // For now, we'll use messages or expanded nodes as proxy for content
+                  // In real implementation, this would check specific concept node content
+                  const hasEnoughContent = messages.length > 0 || (input.length > 20)
 
                   return hasEnoughContent ? (
                     <Button
                       type="button"
                       size="default"
-                      className="bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white font-medium rounded-lg px-4 py-2 shadow-lg hover:shadow-xl transition-all duration-200"
+                      className="bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white font-medium rounded-lg px-4 py-2 shadow-lg hover:shadow-xl transition-all duration-200 group"
                       disabled={isLoading || isToolInvocationInProgress()}
+                      onClick={() => {
+                        // This would trigger the concept generation process
+                        console.log('Generating concept with current node content...')
+                      }}
                     >
-                      Generate Concept
+                      <span className="group-hover:scale-105 transition-transform duration-200">
+                        Generate Concept
+                      </span>
                     </Button>
                   ) : (
                     <Button
