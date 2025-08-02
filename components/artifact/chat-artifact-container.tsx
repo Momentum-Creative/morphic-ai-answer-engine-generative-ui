@@ -45,7 +45,7 @@ export function ChatArtifactContainer({
       {!isMobile && (
         <ResizablePanelGroup
           direction="horizontal"
-          className="flex flex-1 min-w-0 h-full" // Responsive classes removed
+          className="flex flex-1 min-w-0 min-h-full" // Responsive classes removed
         >
           <ResizablePanel
             className={cn(
