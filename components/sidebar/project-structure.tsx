@@ -24,6 +24,7 @@ import {
 
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
+import { useNotificationActions } from '@/hooks/use-notification-actions'
 
 interface MediaItem {
   id: string
