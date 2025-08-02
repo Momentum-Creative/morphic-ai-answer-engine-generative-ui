@@ -26,11 +26,11 @@ interface AppSidebarProps {
 export default function AppSidebar({ user }: AppSidebarProps) {
   return (
     <Sidebar side="left" variant="sidebar" collapsible="offcanvas">
-      <SidebarHeader className="flex flex-row justify-end items-center px-2 py-3">
+      <SidebarHeader className="flex flex-row justify-between items-center px-2 py-3">
+        <UserProfileSection user={user} compact />
         <SidebarTrigger />
       </SidebarHeader>
       <SidebarContent className="flex flex-col h-full">
-        <UserProfileSection user={user} />
         <div className="px-2 py-4">
           <SidebarMenu>
             <SidebarMenuItem>
