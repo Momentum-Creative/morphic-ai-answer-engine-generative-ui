@@ -31,9 +31,16 @@ interface MediaItem {
   type: 'music' | 'dialogue' | 'narration' | 'video' | 'image'
 }
 
+interface TodoItem {
+  id: string
+  name: string
+  completed: boolean
+}
+
 interface FolderState {
   isExpanded: boolean
   items: MediaItem[]
+  todos?: TodoItem[]
 }
 
 const getMediaIcon = (type: MediaItem['type']) => {
