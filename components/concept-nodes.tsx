@@ -131,6 +131,20 @@ export function ConceptNodes() {
     setShowTextInput(newTextInput)
   }
 
+  const saveContent = (nodeId: string, content: string) => {
+    if (content.trim()) {
+      // Mark node as having content
+      const newNodesWithContent = new Set(nodesWithContent)
+      newNodesWithContent.add(nodeId)
+      setNodesWithContent(newNodesWithContent)
+
+      // Close text input
+      const newTextInput = new Set(showTextInput)
+      newTextInput.delete(nodeId)
+      setShowTextInput(newTextInput)
+    }
+  }
+
   return (
     <div className="relative w-full">
       {/* Main concept nodes bar */}
