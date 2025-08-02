@@ -34,12 +34,13 @@ export default function AppSidebar({ user }: AppSidebarProps) {
         <div className="px-2 py-4">
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild>
-                <Link href="/" className="flex items-center gap-2">
-                  <Plus className="size-4" />
-                  <span>New Concept</span>
-                </Link>
-              </SidebarMenuButton>
+              <Link
+                href="/"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium shadow-md hover:shadow-lg transition-all duration-200 group"
+              >
+                <Plus className="size-4 group-hover:scale-110 transition-transform duration-200" />
+                <span>New Concept</span>
+              </Link>
             </SidebarMenuItem>
           </SidebarMenu>
         </div>
