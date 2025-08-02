@@ -36,33 +36,30 @@ export default function AppSidebar({ user }: AppSidebarProps) {
             <SidebarMenuItem>
               <Link
                 href="/"
-                className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium shadow-md hover:shadow-lg transition-all duration-300 group relative overflow-hidden"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium shadow-md hover:shadow-lg transition-all duration-300 group"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-500" />
-                <Plus className="size-4 group-hover:scale-110 transition-transform duration-200 relative z-10" />
-                <span className="relative z-10">New Concept</span>
+                <Plus className="size-4 group-hover:scale-110 transition-transform duration-200" />
+                <span>New Concept</span>
               </Link>
             </SidebarMenuItem>
 
             <SidebarMenuItem>
               <Link
                 href="/inspiration"
-                className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-orange-500 to-pink-600 hover:from-orange-600 hover:to-pink-700 text-white font-medium shadow-md hover:shadow-lg transition-all duration-300 group relative overflow-hidden"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-orange-500 to-pink-600 hover:from-orange-600 hover:to-pink-700 text-white font-medium shadow-md hover:shadow-lg transition-all duration-300 group"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-orange-500 opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-500" />
-                <Lightbulb className="size-4 group-hover:scale-110 transition-transform duration-200 relative z-10" />
-                <span className="relative z-10">Inspiration</span>
+                <Lightbulb className="size-4 group-hover:scale-110 transition-transform duration-200" />
+                <span>Inspiration</span>
               </Link>
             </SidebarMenuItem>
 
             <SidebarMenuItem>
               <Link
                 href="/trends"
-                className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-white font-medium shadow-md hover:shadow-lg transition-all duration-300 group relative overflow-hidden"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-white font-medium shadow-md hover:shadow-lg transition-all duration-300 group"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-teal-500 opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-500" />
-                <TrendingUp className="size-4 group-hover:scale-110 transition-transform duration-200 relative z-10" />
-                <span className="relative z-10">Trends</span>
+                <TrendingUp className="size-4 group-hover:scale-110 transition-transform duration-200" />
+                <span>Trends</span>
               </Link>
             </SidebarMenuItem>
           </SidebarMenu>
