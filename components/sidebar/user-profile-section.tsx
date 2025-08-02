@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { User } from '@supabase/supabase-js'
 import { Building2 } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -11,12 +12,17 @@ interface UserProfileSectionProps {
 }
 
 export function UserProfileSection({ user, userType }: UserProfileSectionProps) {
-  // Get user type from localStorage if not provided
-  const storedUserType = typeof window !== 'undefined' 
-    ? localStorage.getItem('user-type') as 'brand' | 'creator' | null
-    : null
-  
-  const currentUserType = userType || storedUserType || 'creator'
+  const [currentUserType, setCurrentUserType] = useState<'brand' | 'creator'>('creator')
+
+  // Handle client-side localStorage access after hydration
+  useEffect(() => {
+    if (userType) {
+      setCurrentUserType(userType)
+    } else {
+      const storedUserType = localStorage.getItem('user-type') as 'brand' | 'creator' | null
+      setCurrentUserType(storedUserType || 'creator')
+    }
+  }, [userType])
 
   // Mock data for demonstration - in real app this would come from user data
   const profileData = {
