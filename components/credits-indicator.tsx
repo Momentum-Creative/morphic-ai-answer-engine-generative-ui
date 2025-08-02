@@ -9,7 +9,7 @@ interface CreditsIndicatorProps {
   className?: string
 }
 
-export function CreditsIndicator({ used = 10, total = 500, className }: CreditsIndicatorProps) {
+export function CreditsIndicator({ used = 120, total = 500, className }: CreditsIndicatorProps) {
   const percentage = (used / total) * 100
 
   return (
