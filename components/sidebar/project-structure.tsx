@@ -17,7 +17,9 @@ import {
   Zap,
   DollarSign,
   Crown,
-  User
+  User,
+  CheckSquare,
+  Square
 } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
