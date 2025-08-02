@@ -12,7 +12,10 @@ import {
   Volume2,
   Video,
   Image,
-  Plus
+  Plus,
+  Tag,
+  Zap,
+  DollarSign
 } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
