@@ -64,9 +64,9 @@ export function ProjectIndicator({ className, conceptProgress = 0 }: ProjectIndi
       )}
 
       {/* Project Association Indicator */}
-      <div className="flex items-center gap-2 px-4 py-2 bg-accent/50 rounded-full border border-border/50 backdrop-blur-sm">
-        <Folder className="h-4 w-4 text-blue-500" />
-        <span className="text-sm text-muted-foreground">Concept for:</span>
+      <div className="flex items-center gap-2 px-3 py-1.5 bg-accent/50 rounded-full border border-border/50 backdrop-blur-sm">
+        <Folder className="h-3 w-3 text-blue-500" />
+        <span className="text-xs text-muted-foreground">for:</span>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
