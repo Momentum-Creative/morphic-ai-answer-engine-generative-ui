@@ -13,6 +13,7 @@ import { cn } from '@/lib/utils'
 
 import { ChatMessages } from './chat-messages'
 import { ChatPanel } from './chat-panel'
+import { ConceptProvider } from './concept-context'
 
 // Define section structure
 interface ChatSection {
@@ -203,13 +204,14 @@ export function Chat({
   }
 
   return (
-    <div
-      className={cn(
-        'relative flex min-h-screen min-w-0 flex-1 flex-col bg-transparent',
-        messages.length === 0 ? 'items-center justify-center' : ''
-      )}
-      data-testid="full-chat"
-    >
+    <ConceptProvider>
+      <div
+        className={cn(
+          'relative flex min-h-screen min-w-0 flex-1 flex-col bg-transparent',
+          messages.length === 0 ? 'items-center justify-center' : ''
+        )}
+        data-testid="full-chat"
+      >
       <ChatMessages
         sections={sections}
         data={data}
@@ -235,6 +237,7 @@ export function Chat({
         showScrollToBottomButton={!isAtBottom}
         scrollContainerRef={scrollContainerRef}
       />
-    </div>
+      </div>
+    </ConceptProvider>
   )
 }
