@@ -10,12 +10,11 @@ import {
   FileText,
   Brush,
   Monitor,
-  ClipboardList,
-  Plus,
-  X
+  ClipboardList
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from './ui/button'
+import { useConceptContext } from './concept-context'
 
 interface ConceptNode {
   id: string
@@ -102,48 +101,14 @@ const conceptNodes: ConceptNode[] = [
 ]
 
 export function ConceptNodes() {
-  const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set())
+  const { selectedNodeId, setSelectedNodeId, nodeContent } = useConceptContext()
   const [hoveredNode, setHoveredNode] = useState<string | null>(null)
-  const [showTextInput, setShowTextInput] = useState<Set<string>>(new Set())
-  const [nodesWithContent, setNodesWithContent] = useState<Set<string>>(
-    new Set(['references'])
-  ) // Demo: references has content
 
   const toggleNode = (nodeId: string) => {
-    const newExpanded = new Set(expandedNodes)
-    if (newExpanded.has(nodeId)) {
-      newExpanded.delete(nodeId)
-      // Also remove text input when collapsing
-      const newTextInput = new Set(showTextInput)
-      newTextInput.delete(nodeId)
-      setShowTextInput(newTextInput)
+    if (selectedNodeId === nodeId) {
+      setSelectedNodeId(null)
     } else {
-      newExpanded.add(nodeId)
-    }
-    setExpandedNodes(newExpanded)
-  }
-
-  const toggleTextInput = (nodeId: string) => {
-    const newTextInput = new Set(showTextInput)
-    if (newTextInput.has(nodeId)) {
-      newTextInput.delete(nodeId)
-    } else {
-      newTextInput.add(nodeId)
-    }
-    setShowTextInput(newTextInput)
-  }
-
-  const saveContent = (nodeId: string, content: string) => {
-    if (content.trim()) {
-      // Mark node as having content
-      const newNodesWithContent = new Set(nodesWithContent)
-      newNodesWithContent.add(nodeId)
-      setNodesWithContent(newNodesWithContent)
-
-      // Close text input
-      const newTextInput = new Set(showTextInput)
-      newTextInput.delete(nodeId)
-      setShowTextInput(newTextInput)
+      setSelectedNodeId(nodeId)
     }
   }
 
@@ -153,8 +118,9 @@ export function ConceptNodes() {
       <div className="flex items-center justify-center gap-2 p-3 bg-muted/50 rounded-2xl border border-border backdrop-blur-sm">
         {conceptNodes.map((node, index) => {
           const Icon = node.icon
-          const isExpanded = expandedNodes.has(node.id)
+          const isSelected = selectedNodeId === node.id
           const isHovered = hoveredNode === node.id
+          const hasContent = nodeContent[node.id]
 
           return (
             <div key={node.id} className="relative">
@@ -166,29 +132,28 @@ export function ConceptNodes() {
               {/* Node button */}
               <div className="relative">
                 <div className="relative">
-                  {/* Thin circle indicator for nodes with content - clickable overlay */}
-                  {nodesWithContent.has(node.id) && (
+                  {/* Content indicator for nodes with content */}
+                  {hasContent && (
                     <div
                       className={cn(
                         'absolute inset-0 rounded-full border-2 animate-pulse cursor-pointer hover:scale-105 transition-transform duration-200',
                         node.color.replace('text-', 'border-')
                       )}
                       onClick={() => toggleNode(node.id)}
-                      title={`Click to ${isExpanded ? 'collapse' : 'expand'} ${node.name}`}
+                      title={`${node.name} has content`}
                     />
                   )}
 
                   <Button
-                    variant={isExpanded ? 'default' : 'ghost'}
+                    variant={isSelected ? 'default' : 'ghost'}
                     size="sm"
                     onClick={() => toggleNode(node.id)}
                     onMouseEnter={() => setHoveredNode(node.id)}
                     onMouseLeave={() => setHoveredNode(null)}
                     className={cn(
                       'h-10 w-10 rounded-full p-0 transition-all duration-200',
-                      isExpanded && 'shadow-lg scale-110',
-                      nodesWithContent.has(node.id) &&
-                        `ring-1 ring-${node.color.split('-')[1]}-400/50`
+                      isSelected && 'shadow-lg scale-110',
+                      hasContent && `ring-1 ring-${node.color.split('-')[1]}-400/50`
                     )}
                   >
                     <Icon className={cn('w-4 h-4', node.color)} />
@@ -196,7 +161,7 @@ export function ConceptNodes() {
                 </div>
 
                 {/* Hover tooltip */}
-                {isHovered && !isExpanded && (
+                {isHovered && !isSelected && (
                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50">
                     <div className="bg-popover border border-border rounded-md shadow-lg px-2 py-1 whitespace-nowrap">
                       <span className="text-xs font-medium">{node.name}</span>
@@ -205,8 +170,8 @@ export function ConceptNodes() {
                   </div>
                 )}
 
-                {/* Connecting line to expanded window */}
-                {isExpanded && (
+                {/* Selection indicator line */}
+                {isSelected && (
                   <div className="absolute top-full left-1/2 -translate-x-1/2 w-px h-4 bg-border" />
                 )}
               </div>
@@ -215,188 +180,59 @@ export function ConceptNodes() {
         })}
       </div>
 
-      {/* Expanded windows */}
-      {expandedNodes.size > 0 && (
-        <div
-          className="mt-4 grid gap-4"
-          style={{
-            gridTemplateColumns: `repeat(${Math.min(expandedNodes.size, 3)}, 1fr)`
-          }}
-        >
-          {Array.from(expandedNodes).map(nodeId => {
-            const node = conceptNodes.find(n => n.id === nodeId)
+      {/* Single expanded preview */}
+      {selectedNodeId && (
+        <div className="mt-4">
+          {(() => {
+            const node = conceptNodes.find(n => n.id === selectedNodeId)
             if (!node) return null
 
             const Icon = node.icon
+            const hasContent = nodeContent[selectedNodeId]
 
             return (
-              <div
-                key={nodeId}
-                className="bg-background border border-border rounded-xl p-4 shadow-lg backdrop-blur-sm relative"
-              >
-                {/* Window header */}
+              <div className="bg-background border border-border rounded-xl p-4 shadow-lg backdrop-blur-sm relative max-w-md mx-auto">
+                {/* Preview header */}
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
                     <Icon className={cn('w-4 h-4', node.color)} />
                     <h3 className="font-semibold text-sm">{node.name}</h3>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => toggleNode(nodeId)}
-                    className="h-6 w-6 p-0 hover:bg-destructive/10"
-                  >
-                    <X className="w-3 h-3" />
-                  </Button>
+                  <div className="text-xs text-muted-foreground">
+                    Selected for editing
+                  </div>
                 </div>
 
-                {/* Window content */}
-                <div className="space-y-3">
-                  <p className="text-xs text-muted-foreground">
-                    {node.description}
-                  </p>
+                {/* Description */}
+                <p className="text-xs text-muted-foreground mb-3">
+                  {node.description}
+                </p>
 
-                  {/* Content areas */}
-                  {nodeId === 'brand' ? (
-                    /* Brand-specific subsections */
-                    <div className="space-y-3">
-                      {[
-                        {
-                          id: 'company-name',
-                          label: 'Company Name',
-                          placeholder: 'Enter company name...'
-                        },
-                        {
-                          id: 'campaign-name',
-                          label: 'Campaign Name',
-                          placeholder: 'Enter campaign name...'
-                        },
-                        {
-                          id: 'campaign-goals',
-                          label: 'Campaign Goals',
-                          placeholder: 'Define campaign objectives...'
-                        },
-                        {
-                          id: 'products-services',
-                          label: 'Product(s) or Services',
-                          placeholder: 'List products or services...'
-                        },
-                        {
-                          id: 'social-channels',
-                          label: 'Social Channels',
-                          placeholder: 'Specify social media channels...'
-                        },
-                        {
-                          id: 'brand-assets',
-                          label: 'Brand Assets (logo, brand guide, fonts)',
-                          placeholder: 'Upload or describe brand assets...'
-                        }
-                      ].map(subsection => (
-                        <div
-                          key={subsection.id}
-                          className="border border-border/30 rounded-lg p-3 space-y-2"
-                        >
-                          <h4 className="text-xs font-medium text-foreground">
-                            {subsection.label}
-                          </h4>
-                          <textarea
-                            placeholder={subsection.placeholder}
-                            className="w-full h-16 p-2 text-xs bg-background border border-border rounded resize-none focus:outline-none focus:ring-1 focus:ring-ring"
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    /* Original content for other nodes */
-                    <div className="space-y-2">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => toggleTextInput(nodeId)}
-                        className="flex items-center gap-2 h-auto p-2 w-full justify-start hover:bg-accent/50"
-                      >
-                        <Plus className="w-3 h-3 text-muted-foreground" />
-                        <span className="text-xs text-muted-foreground">
-                          Add {node.name.toLowerCase()} details
-                        </span>
-                      </Button>
-
-                      {/* Animated text input window */}
-                      {showTextInput.has(nodeId) && (
-                        <div className="animate-in slide-in-from-top-2 duration-300 space-y-2">
-                          <textarea
-                            id={`textarea-${nodeId}`}
-                            placeholder={`Enter ${node.name.toLowerCase()} details...`}
-                            className="w-full h-20 p-2 text-xs bg-background border border-border rounded-lg resize-none focus:outline-none focus:ring-1 focus:ring-ring"
-                            autoFocus
-                          />
-                          <div className="flex gap-1">
-                            <Button
-                              variant="default"
-                              size="sm"
-                              className="h-6 text-xs"
-                              onClick={() => {
-                                const textarea = document.getElementById(
-                                  `textarea-${nodeId}`
-                                ) as HTMLTextAreaElement
-                                if (textarea) {
-                                  saveContent(nodeId, textarea.value)
-                                }
-                              }}
-                            >
-                              Save
-                            </Button>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="h-6 text-xs"
-                              onClick={() => toggleTextInput(nodeId)}
-                            >
-                              Cancel
-                            </Button>
-                          </div>
-                        </div>
-                      )}
-
-                      {!showTextInput.has(nodeId) && (
-                        <div
-                          className={cn(
-                            'h-20 rounded-lg border-2 border-dashed flex items-center justify-center',
-                            nodesWithContent.has(nodeId)
-                              ? `bg-${node.color.split('-')[1]}-50 border-${node.color.split('-')[1]}-200 dark:bg-${node.color.split('-')[1]}-950/20 dark:border-${node.color.split('-')[1]}-800`
-                              : 'bg-muted/30 border-border'
-                          )}
-                        >
-                          <span
-                            className={cn(
-                              'text-xs',
-                              nodesWithContent.has(nodeId)
-                                ? `text-${node.color.split('-')[1]}-600 dark:text-${node.color.split('-')[1]}-400 font-medium`
-                                : 'text-muted-foreground'
-                            )}
-                          >
-                            {nodesWithContent.has(nodeId)
-                              ? `${node.name} content added ✓`
-                              : 'Drop content here'}
-                          </span>
-                        </div>
-                      )}
-                    </div>
+                {/* Content status */}
+                <div
+                  className={cn(
+                    'p-3 rounded-lg border-2 border-dashed flex items-center justify-center',
+                    hasContent
+                      ? `bg-${node.color.split('-')[1]}-50 border-${node.color.split('-')[1]}-200 dark:bg-${node.color.split('-')[1]}-950/20 dark:border-${node.color.split('-')[1]}-800`
+                      : 'bg-muted/30 border-border'
                   )}
-
-                  {/* Quick actions */}
-                  <div className="flex gap-1 pt-2">
-                    <Button variant="outline" size="sm" className="h-6 text-xs">
-                      Edit
-                    </Button>
-                    <Button variant="outline" size="sm" className="h-6 text-xs">
-                      Import
-                    </Button>
-                  </div>
+                >
+                  <span
+                    className={cn(
+                      'text-xs text-center',
+                      hasContent
+                        ? `text-${node.color.split('-')[1]}-600 dark:text-${node.color.split('-')[1]}-400 font-medium`
+                        : 'text-muted-foreground'
+                    )}
+                  >
+                    {hasContent
+                      ? `${node.name} content ready ✓`
+                      : `Use the main editor below to develop your ${node.name.toLowerCase()} concept`}
+                  </span>
                 </div>
               </div>
             )
-          })}
+          })()}
         </div>
       )}
     </div>
