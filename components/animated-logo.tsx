@@ -20,7 +20,7 @@ export function AnimatedLogo() {
           src="https://cdn.builder.io/api/v1/image/assets%2F0b295e259b734d8bb96a58b78a9c499c%2F426a0a657c2340a2811200d88baf89e8?format=webp&width=800"
           alt="Momentum Creative Logo"
           className={cn(
-            'size-6 object-contain transition-all duration-500 ease-in-out -scale-x-100',
+            'w-8 h-8 object-contain transition-all duration-500 ease-in-out -scale-x-100',
             isHovered && 'scale-x-100 scale-y-110'
           )}
         />
