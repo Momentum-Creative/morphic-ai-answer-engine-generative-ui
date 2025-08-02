@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { User } from '@supabase/supabase-js'
 
-import { Plus } from 'lucide-react'
+import { Plus, Lightbulb, TrendingUp } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
