@@ -35,7 +35,7 @@ export function ChatArtifactContainer({
   }, [state.isOpen])
 
   return (
-    <div className="flex-1 min-h-0 h-screen flex">
+    <div className="flex-1 min-h-0 flex">
       <div className="absolute p-4 z-50 transition-opacity duration-1000">
         {(!open || isMobileSidebar) && (
           <SidebarTrigger className="animate-fade-in" />
