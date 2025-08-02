@@ -164,12 +164,16 @@ export function ConceptNodes() {
               {/* Node button */}
               <div className="relative">
                 <div className="relative">
-                  {/* Thin circle indicator for nodes with content */}
+                  {/* Thin circle indicator for nodes with content - clickable overlay */}
                   {nodesWithContent.has(node.id) && (
-                    <div className={cn(
-                      "absolute inset-0 rounded-full border-2 animate-pulse",
-                      node.color.replace('text-', 'border-')
-                    )} />
+                    <div
+                      className={cn(
+                        "absolute inset-0 rounded-full border-2 animate-pulse cursor-pointer hover:scale-105 transition-transform duration-200",
+                        node.color.replace('text-', 'border-')
+                      )}
+                      onClick={() => toggleNode(node.id)}
+                      title={`Click to ${isExpanded ? 'collapse' : 'expand'} ${node.name}`}
+                    />
                   )}
 
                   <Button
