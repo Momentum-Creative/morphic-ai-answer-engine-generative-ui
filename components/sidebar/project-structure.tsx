@@ -255,7 +255,7 @@ export function ProjectStructure() {
               {/* To-do List Section */}
               <div className="ml-6 space-y-1 mt-3 pt-3 border-t border-border/30">
                 <h5 className="text-xs font-medium text-muted-foreground px-2 mb-2">
-                  To-Do
+                  My First Project To-Do
                 </h5>
                 {folders['my-first-project']?.todos?.map(todo => (
                   <Button
