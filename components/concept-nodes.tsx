@@ -297,9 +297,22 @@ export function ConceptNodes() {
                     )}
 
                     {!showTextInput.has(nodeId) && (
-                      <div className="h-20 bg-muted/30 rounded-lg border-2 border-dashed border-border flex items-center justify-center">
-                        <span className="text-xs text-muted-foreground">
-                          Drop content here
+                      <div className={cn(
+                        "h-20 rounded-lg border-2 border-dashed flex items-center justify-center",
+                        nodesWithContent.has(nodeId)
+                          ? "bg-blue-50 border-blue-200 dark:bg-blue-950/20 dark:border-blue-800"
+                          : "bg-muted/30 border-border"
+                      )}>
+                        <span className={cn(
+                          "text-xs",
+                          nodesWithContent.has(nodeId)
+                            ? "text-blue-600 dark:text-blue-400 font-medium"
+                            : "text-muted-foreground"
+                        )}>
+                          {nodesWithContent.has(nodeId)
+                            ? `${node.name} content added ✓`
+                            : "Drop content here"
+                          }
                         </span>
                       </div>
                     )}
