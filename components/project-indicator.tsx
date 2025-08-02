@@ -26,7 +26,7 @@ export function ProjectIndicator({ className }: ProjectIndicatorProps) {
   return (
     <div className={cn('flex flex-col items-center mb-6', className)}>
       {/* Project Association Indicator */}
-      <div className="flex items-center gap-2 px-4 py-2 bg-accent/50 rounded-full border border-border/50 backdrop-blur-sm relative">
+      <div className="flex items-center gap-2 px-4 py-2 bg-accent/50 rounded-full border border-border/50 backdrop-blur-sm">
         <Folder className="h-4 w-4 text-blue-500" />
         <span className="text-sm text-muted-foreground">Concept for:</span>
 
@@ -57,23 +57,6 @@ export function ProjectIndicator({ className }: ProjectIndicatorProps) {
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
-
-        {/* Visual connection line pointing up to sidebar */}
-        <div className="absolute -top-8 -left-16 w-16 h-8 pointer-events-none">
-          <svg
-            className="w-full h-full text-blue-500/30"
-            viewBox="0 0 64 32"
-            fill="none"
-          >
-            <path
-              d="M2 30 Q2 2 30 2 L62 2"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeDasharray="4 4"
-              className="animate-pulse"
-            />
-          </svg>
-        </div>
       </div>
     </div>
   )
