@@ -16,7 +16,7 @@ interface ProjectIndicatorProps {
   conceptProgress?: number // 0-100, tracks how much of the concept is filled
 }
 
-export function ProjectIndicator({ className }: ProjectIndicatorProps) {
+export function ProjectIndicator({ className, conceptProgress = 0 }: ProjectIndicatorProps) {
   const [selectedProject, setSelectedProject] = useState('My First Project')
   const [conceptName, setConceptName] = useState('')
   const [isGeneratingName, setIsGeneratingName] = useState(false)
