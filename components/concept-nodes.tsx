@@ -155,17 +155,48 @@ export function ConceptNodes() {
                 {/* Window content */}
                 <div className="space-y-3">
                   <p className="text-xs text-muted-foreground">{node.description}</p>
-                  
+
                   {/* Placeholder content areas */}
                   <div className="space-y-2">
-                    <div className="flex items-center gap-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => toggleTextInput(nodeId)}
+                      className="flex items-center gap-2 h-auto p-2 w-full justify-start hover:bg-accent/50"
+                    >
                       <Plus className="w-3 h-3 text-muted-foreground" />
                       <span className="text-xs text-muted-foreground">Add {node.name.toLowerCase()} details</span>
-                    </div>
-                    
-                    <div className="h-20 bg-muted/30 rounded-lg border-2 border-dashed border-border flex items-center justify-center">
-                      <span className="text-xs text-muted-foreground">Drop content here</span>
-                    </div>
+                    </Button>
+
+                    {/* Animated text input window */}
+                    {showTextInput.has(nodeId) && (
+                      <div className="animate-in slide-in-from-top-2 duration-300 space-y-2">
+                        <textarea
+                          placeholder={`Enter ${node.name.toLowerCase()} details...`}
+                          className="w-full h-20 p-2 text-xs bg-background border border-border rounded-lg resize-none focus:outline-none focus:ring-1 focus:ring-ring"
+                          autoFocus
+                        />
+                        <div className="flex gap-1">
+                          <Button variant="default" size="sm" className="h-6 text-xs">
+                            Save
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="h-6 text-xs"
+                            onClick={() => toggleTextInput(nodeId)}
+                          >
+                            Cancel
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+
+                    {!showTextInput.has(nodeId) && (
+                      <div className="h-20 bg-muted/30 rounded-lg border-2 border-dashed border-border flex items-center justify-center">
+                        <span className="text-xs text-muted-foreground">Drop content here</span>
+                      </div>
+                    )}
                   </div>
 
                   {/* Quick actions */}
