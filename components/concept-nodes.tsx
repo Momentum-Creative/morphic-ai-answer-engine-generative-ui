@@ -265,6 +265,7 @@ export function ConceptNodes() {
                     {showTextInput.has(nodeId) && (
                       <div className="animate-in slide-in-from-top-2 duration-300 space-y-2">
                         <textarea
+                          id={`textarea-${nodeId}`}
                           placeholder={`Enter ${node.name.toLowerCase()} details...`}
                           className="w-full h-20 p-2 text-xs bg-background border border-border rounded-lg resize-none focus:outline-none focus:ring-1 focus:ring-ring"
                           autoFocus
@@ -274,6 +275,12 @@ export function ConceptNodes() {
                             variant="default"
                             size="sm"
                             className="h-6 text-xs"
+                            onClick={() => {
+                              const textarea = document.getElementById(`textarea-${nodeId}`) as HTMLTextAreaElement
+                              if (textarea) {
+                                saveContent(nodeId, textarea.value)
+                              }
+                            }}
                           >
                             Save
                           </Button>
