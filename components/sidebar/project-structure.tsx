@@ -15,7 +15,9 @@ import {
   Plus,
   Tag,
   Zap,
-  DollarSign
+  DollarSign,
+  Crown,
+  User
 } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
