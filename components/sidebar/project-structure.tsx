@@ -62,7 +62,12 @@ export function ProjectStructure() {
   const [folders, setFolders] = useState<Record<string, FolderState>>({
     'my-first-project': {
       isExpanded: false,
-      items: []
+      items: [],
+      todos: [
+        { id: 't1', name: 'Finalize brand messaging', completed: false },
+        { id: 't2', name: 'Review video timeline', completed: true },
+        { id: 't3', name: 'Get stakeholder approval', completed: false }
+      ]
     },
     briefs: {
       isExpanded: false,
