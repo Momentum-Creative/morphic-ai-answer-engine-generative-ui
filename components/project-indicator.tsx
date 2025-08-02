@@ -124,15 +124,15 @@ export function ProjectIndicator({ className, conceptProgress = 0 }: ProjectIndi
           size="sm"
           onClick={generateConceptName}
           disabled={isGeneratingName}
-          className="mt-2 h-6 text-xs text-muted-foreground hover:text-foreground"
+          className="mt-1 h-5 text-xs text-muted-foreground hover:text-foreground px-2"
         >
           {isGeneratingName ? (
             <>
-              <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-current mr-1" />
-              Regenerating...
+              <div className="animate-spin rounded-full h-2 w-2 border-b border-current mr-1" />
+              Regen...
             </>
           ) : (
-            'Regenerate Name'
+            'Regenerate'
           )}
         </Button>
       )}
