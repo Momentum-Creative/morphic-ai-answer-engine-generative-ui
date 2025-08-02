@@ -97,7 +97,9 @@ export function ProjectStructure() {
   const stockTags = [
     { key: 'stock-free', name: 'Stock', icon: Tag, color: 'text-green-500', description: 'Commercially free' },
     { key: 'ai', name: 'AI', icon: Zap, color: 'text-purple-500', description: 'AI generated' },
-    { key: 'stock-paid', name: 'Stock', icon: DollarSign, color: 'text-yellow-500', description: 'Licenseable stock' }
+    { key: 'stock-paid', name: 'Licenseable', icon: DollarSign, color: 'text-yellow-500', description: 'Licenseable stock' },
+    { key: 'brand-footage', name: 'Brand Footage', icon: Video, color: 'text-blue-600', description: 'Company owned content' },
+    { key: 'my-footage', name: 'My Footage', icon: Video, color: 'text-indigo-600', description: 'Personal footage library' }
   ]
 
   return (
