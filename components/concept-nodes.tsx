@@ -47,10 +47,24 @@ export function ConceptNodes() {
     const newExpanded = new Set(expandedNodes)
     if (newExpanded.has(nodeId)) {
       newExpanded.delete(nodeId)
+      // Also remove text input when collapsing
+      const newTextInput = new Set(showTextInput)
+      newTextInput.delete(nodeId)
+      setShowTextInput(newTextInput)
     } else {
       newExpanded.add(nodeId)
     }
     setExpandedNodes(newExpanded)
+  }
+
+  const toggleTextInput = (nodeId: string) => {
+    const newTextInput = new Set(showTextInput)
+    if (newTextInput.has(nodeId)) {
+      newTextInput.delete(nodeId)
+    } else {
+      newTextInput.add(nodeId)
+    }
+    setShowTextInput(newTextInput)
   }
 
   return (
