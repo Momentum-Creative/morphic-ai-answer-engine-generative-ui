@@ -33,15 +33,15 @@ export function UserProfileSection({ user, userType }: UserProfileSectionProps) 
   }
 
   return (
-    <div className="px-3 py-4 border-b border-border/50">
+    <div className="px-3 py-4 border-b border-border/50" suppressHydrationWarning>
       <div className="flex items-center gap-3">
         {/* Profile Avatar */}
         <Avatar className="h-10 w-10">
           <AvatarImage src={profileData.avatar} alt={profileData.name} />
           <AvatarFallback className={cn(
             "text-sm font-medium",
-            currentUserType === 'brand' 
-              ? "bg-blue-500 text-white" 
+            currentUserType === 'brand'
+              ? "bg-blue-500 text-white"
               : "bg-purple-500 text-white"
           )}>
             {profileData.initials}
