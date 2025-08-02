@@ -122,7 +122,17 @@ export function ProjectStructure() {
     <div className="space-y-4">
       {/* Project Header */}
       <div className="px-2 py-2">
-        <h3 className="text-sm font-semibold text-foreground/80 mb-3">My Projects</h3>
+        <div className="flex items-center justify-between mb-3 group/projects">
+          <h3 className="text-sm font-semibold text-foreground/80">My Projects</h3>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="opacity-0 group-hover/projects:opacity-100 transition-opacity h-auto p-1 text-muted-foreground hover:text-foreground"
+            title="Add New Project"
+          >
+            <Plus className="w-3 h-3" />
+          </Button>
+        </div>
       </div>
 
       {/* Main Project Folder */}
