@@ -163,19 +163,27 @@ export function ConceptNodes() {
 
               {/* Node button */}
               <div className="relative">
-                <Button
-                  variant={isExpanded ? 'default' : 'ghost'}
-                  size="sm"
-                  onClick={() => toggleNode(node.id)}
-                  onMouseEnter={() => setHoveredNode(node.id)}
-                  onMouseLeave={() => setHoveredNode(null)}
-                  className={cn(
-                    'h-10 w-10 rounded-full p-0 transition-all duration-200',
-                    isExpanded && 'shadow-lg scale-110'
+                <div className="relative">
+                  {/* Thin circle indicator for nodes with content */}
+                  {nodesWithContent.has(node.id) && (
+                    <div className="absolute inset-0 rounded-full border-2 border-blue-400 animate-pulse" />
                   )}
-                >
-                  <Icon className={cn('w-4 h-4', node.color)} />
-                </Button>
+
+                  <Button
+                    variant={isExpanded ? 'default' : 'ghost'}
+                    size="sm"
+                    onClick={() => toggleNode(node.id)}
+                    onMouseEnter={() => setHoveredNode(node.id)}
+                    onMouseLeave={() => setHoveredNode(null)}
+                    className={cn(
+                      'h-10 w-10 rounded-full p-0 transition-all duration-200',
+                      isExpanded && 'shadow-lg scale-110',
+                      nodesWithContent.has(node.id) && 'ring-1 ring-blue-400/50'
+                    )}
+                  >
+                    <Icon className={cn('w-4 h-4', node.color)} />
+                  </Button>
+                </div>
 
                 {/* Hover tooltip */}
                 {isHovered && !isExpanded && (
