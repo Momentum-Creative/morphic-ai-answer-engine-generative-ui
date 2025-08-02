@@ -176,10 +176,10 @@ export function ChatPanel({
             tabIndex={0}
             onCompositionStart={handleCompositionStart}
             onCompositionEnd={handleCompositionEnd}
-            placeholder="ask me anything and I'll make it happen"
+            placeholder={messages.length === 0 ? "Use the concept editor above to get started" : "ask me anything and I'll make it happen"}
             spellCheck={false}
             value={input}
-            disabled={isLoading || isToolInvocationInProgress()}
+            disabled={isLoading || isToolInvocationInProgress() || (messages.length === 0)}
             className="resize-none w-full min-h-12 bg-transparent border-0 p-4 text-sm placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
             onChange={e => {
               handleInputChange(e)
