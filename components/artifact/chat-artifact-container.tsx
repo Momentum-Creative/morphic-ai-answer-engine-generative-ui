@@ -76,7 +76,7 @@ export function ChatArtifactContainer({
 
       {/* Mobile: full-width chat + drawer (Do not render on desktop) */}
       {isMobile && (
-        <div className="flex-1 h-full">
+        <div className="flex-1 min-h-full">
           {' '}
           {/* Responsive classes removed */}
           {children}
