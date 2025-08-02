@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import Link from 'next/link'
 
 import { Plus } from 'lucide-react'
@@ -16,9 +15,7 @@ import {
   SidebarTrigger
 } from '@/components/ui/sidebar'
 
-import { ChatHistorySection } from './sidebar/chat-history-section'
-import { ChatHistorySkeleton } from './sidebar/chat-history-skeleton'
-import { IconLogo } from './ui/icons'
+import { ProjectStructure } from './sidebar/project-structure'
 
 export default function AppSidebar() {
   return (
