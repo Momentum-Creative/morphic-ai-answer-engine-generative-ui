@@ -35,9 +35,9 @@ export function UserProfileSection({ user, userType, compact = false }: UserProf
 
   if (compact) {
     return (
-      <div className="relative flex items-center gap-2" suppressHydrationWarning>
+      <div className="flex items-center gap-2" suppressHydrationWarning>
         {/* Hover trigger area - only avatar and username */}
-        <div className="group flex items-center gap-2">
+        <div className="group/user-profile relative flex items-center gap-2 rounded px-1 py-0.5">
           {/* Compact Profile Avatar */}
           <Avatar className="h-8 w-8">
             <AvatarImage src={profileData.avatar} alt={profileData.name} />
