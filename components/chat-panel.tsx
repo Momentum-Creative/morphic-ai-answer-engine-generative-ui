@@ -128,6 +128,11 @@ export function ChatPanel({
             Video Concept Copilot
           </p>
 
+          {/* Concept nodes */}
+          <div className="w-full max-w-3xl mx-auto mb-6">
+            <ConceptNodes />
+          </div>
+
           {/* Notion-style editor for concept development */}
           <div className="w-full max-w-2xl mx-auto">
             <NotionEditor
@@ -210,8 +215,7 @@ export function ChatPanel({
             {/* Subtle divider */}
             <div className="w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
-            {/* Concept nodes */}
-            <ConceptNodes />
+            {/* Concept nodes moved to main area above */}
 
             {/* Traditional controls */}
             <div className="flex items-center justify-between">
