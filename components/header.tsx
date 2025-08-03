@@ -32,7 +32,7 @@ export const Header: React.FC<HeaderProps> = ({ user }) => {
       {/* This div can be used for a logo or title on the left if needed */}
       <div></div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 pointer-events-auto">
         <AnimatedLogo />
         <NotificationPanel />
         {user ? <UserMenu user={user} /> : <GuestMenu />}
