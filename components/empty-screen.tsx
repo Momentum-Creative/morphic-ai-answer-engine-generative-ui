@@ -37,7 +37,7 @@ export function EmptyScreen({
 }) {
   return (
     <div className={`mx-auto w-full transition-all ${className}`}>
-      <div className="bg-background p-2">
+      <div className="bg-background/70 backdrop-blur-sm p-4 rounded-2xl border border-border/30">
         <div className="mt-2 flex flex-col items-start space-y-2 mb-4">
           {exampleMessages.map((message, index) => (
             <Button
