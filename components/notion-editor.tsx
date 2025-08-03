@@ -83,7 +83,7 @@ export function NotionEditor({ onSubmit, isLoading }: NotionEditorProps) {
       </div>
 
       {/* Notion-style editor */}
-      <div className="relative">
+      <div className="relative bg-background border border-border rounded-xl p-4 shadow-sm">
         <textarea
           ref={textareaRef}
           value={localContent}
@@ -95,32 +95,32 @@ Examples:
 • "Our brand is modern and minimalist with a focus on sustainability"
 • "The campaign should target Gen Z with an authentic, unfiltered tone"
 • "Think Apple meets Patagonia - clean design with environmental values"`}
-          className="w-full min-h-[120px] p-4 bg-transparent border-0 resize-none focus:outline-none text-sm leading-relaxed placeholder:text-muted-foreground"
+          className="w-full min-h-[120px] bg-transparent border-0 resize-none focus:outline-none text-sm leading-relaxed placeholder:text-muted-foreground"
           disabled={isLoading}
         />
-        
-        {/* Submit button */}
-        {localContent.trim() && (
-          <div className="flex justify-end mt-3">
-            <button
-              onClick={handleSubmit}
-              disabled={isLoading}
-              className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium bg-primary text-primary-foreground rounded-md hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-            >
-              {isLoading ? (
-                <>
-                  <div className="w-3 h-3 border border-current border-t-transparent rounded-full animate-spin" />
-                  Processing...
-                </>
-              ) : (
-                <>
-                  Process with AI
-                  <span className="text-xs opacity-70">⌘⏎</span>
-                </>
-              )}
-            </button>
-          </div>
-        )}
+
+        {/* Submit button - always visible in bottom right */}
+        <div className="absolute bottom-3 right-3">
+          <button
+            onClick={handleSubmit}
+            disabled={isLoading || !localContent.trim()}
+            className={cn(
+              "w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 shadow-sm",
+              localContent.trim() && !isLoading
+                ? "bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white hover:shadow-md hover:scale-105"
+                : "bg-muted text-muted-foreground cursor-not-allowed"
+            )}
+            title={localContent.trim() ? "Submit content (⌘⏎)" : "Enter text to submit"}
+          >
+            {isLoading ? (
+              <div className="w-3 h-3 border border-current border-t-transparent rounded-full animate-spin" />
+            ) : (
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14m-7-7l7 7-7 7" />
+              </svg>
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Existing content preview */}
