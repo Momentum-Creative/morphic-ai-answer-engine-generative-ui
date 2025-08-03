@@ -181,7 +181,7 @@ export function ChatPanel({
             tabIndex={0}
             onCompositionStart={handleCompositionStart}
             onCompositionEnd={handleCompositionEnd}
-            placeholder={messages.length === 0 ? "Use the concept editor above to get started" : "ask me anything and I'll make it happen"}
+            placeholder={messages.length === 0 ? "Use the concept editor above to get started - agent logic and responses will go here" : "ask me anything and I'll make it happen"}
             spellCheck={false}
             value={input}
             disabled={isLoading || isToolInvocationInProgress() || (messages.length === 0)}
