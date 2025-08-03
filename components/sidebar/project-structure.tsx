@@ -153,8 +153,8 @@ export function ProjectStructure() {
   return (
     <div className="space-y-2">
       {/* Project Header */}
-      <div className="px-2 py-2">
-        <div className="flex items-center justify-between mb-4 group/projects">
+      <div className="px-2 py-2 pb-0">
+        <div className="flex items-center justify-between pb-px group/projects">
           <h3 className="text-sm font-semibold text-foreground/80">
             My Projects
           </h3>
@@ -177,7 +177,7 @@ export function ProjectStructure() {
             variant="ghost"
             size="sm"
             onClick={() => toggleFolder('my-first-project')}
-            className="w-full justify-start gap-2 px-2 py-1.5 h-auto text-sm hover:bg-accent"
+            className="w-full justify-start gap-2 px-2 py-1.5 h-auto text-sm hover:bg-accent -mt-px"
           >
             {folders['my-first-project']?.isExpanded ? (
               <ChevronDown className="size-4" />
