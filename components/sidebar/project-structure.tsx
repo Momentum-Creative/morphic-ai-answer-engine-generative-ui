@@ -19,7 +19,10 @@ import {
   Crown,
   User,
   CheckSquare,
-  Square
+  Square,
+  BookOpen,
+  Lightbulb,
+  Users2
 } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
@@ -97,6 +100,10 @@ export function ProjectStructure() {
     concepts: {
       isExpanded: false,
       items: []
+    },
+    characters: {
+      isExpanded: false,
+      items: []
     }
   })
 
@@ -113,8 +120,9 @@ export function ProjectStructure() {
   const subFolderConfigs = [
     { key: 'briefs', name: 'Briefs', icon: FileText },
     { key: 'media', name: 'Media', icon: Folder },
-    { key: 'reference', name: 'Reference', icon: Folder },
-    { key: 'concepts', name: 'Concepts', icon: Folder }
+    { key: 'reference', name: 'Reference', icon: BookOpen },
+    { key: 'concepts', name: 'Concepts', icon: Lightbulb },
+    { key: 'characters', name: 'Characters', icon: Users2 }
   ]
 
   const stockTags = [
