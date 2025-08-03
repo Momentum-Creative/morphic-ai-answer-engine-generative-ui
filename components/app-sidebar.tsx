@@ -67,11 +67,14 @@ export default function AppSidebar({ user }: AppSidebarProps) {
             </SidebarMenuItem>
           </SidebarMenu>
         </div>
+
+        {/* To Do Section */}
+        <div className="px-2 py-3 border-t border-border/30">
+          <GlobalTodoSection />
+        </div>
+
         <div className="flex-1 overflow-y-auto px-2">
           <ProjectStructure />
-          <div className="mt-4 pt-4 border-t border-border/50">
-            <GlobalTodoSection />
-          </div>
         </div>
       </SidebarContent>
       <SidebarFooter className="px-2 py-3 border-t border-border/50">
