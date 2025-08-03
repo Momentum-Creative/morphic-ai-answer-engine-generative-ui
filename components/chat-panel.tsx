@@ -329,19 +329,21 @@ export function ChatPanel({
 
       {messages.length === 0 && (
         <div className="fixed bottom-32 left-0 md:left-[var(--sidebar-width)] right-0 z-30 transition-all duration-300 pointer-events-none">
-          <div
-            className={cn(
-              'pointer-events-auto transition-opacity duration-200',
-              showEmptyScreen ? 'visible opacity-100' : 'invisible opacity-0'
-            )}
-          >
-            <EmptyScreen
-              submitMessage={message => {
-                handleInputChange({
-                  target: { value: message }
-                } as React.ChangeEvent<HTMLTextAreaElement>)
-              }}
-            />
+          <div className="w-full max-w-3xl mx-auto px-4">
+            <div
+              className={cn(
+                'pointer-events-auto transition-opacity duration-200',
+                showEmptyScreen ? 'visible opacity-100' : 'invisible opacity-0'
+              )}
+            >
+              <EmptyScreen
+                submitMessage={message => {
+                  handleInputChange({
+                    target: { value: message }
+                  } as React.ChangeEvent<HTMLTextAreaElement>)
+                }}
+              />
+            </div>
           </div>
         </div>
       )}
