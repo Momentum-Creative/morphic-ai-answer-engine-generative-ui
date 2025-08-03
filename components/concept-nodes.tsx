@@ -26,6 +26,33 @@ interface ConceptNode {
   description: string
 }
 
+const getNodeInstructionText = (nodeId: string): string => {
+  switch (nodeId) {
+    case 'brand':
+      return 'brand information'
+    case 'trend':
+      return 'trend inspiration'
+    case 'tone':
+      return 'tone'
+    case 'references':
+      return 'references'
+    case 'inspo':
+      return 'inspiration'
+    case 'story':
+      return 'story elements'
+    case 'style':
+      return 'style'
+    case 'platform':
+      return 'platforms'
+    case 'audience':
+      return 'audience profiles'
+    case 'production':
+      return 'production guide'
+    default:
+      return `${nodeId} information`
+  }
+}
+
 const conceptNodes: ConceptNode[] = [
   {
     id: 'brand',
