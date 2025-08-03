@@ -89,12 +89,22 @@ export function NotionEditor({ onSubmit, isLoading }: NotionEditorProps) {
           value={localContent}
           onChange={(e) => setLocalContent(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder={`Tell me about your ${selectedNode?.name.toLowerCase()} ideas...
+          placeholder={
+            selectedNode?.id === 'audience'
+              ? `Tell me about your target audience...
+
+Examples:
+• "Primary audience: 25-40 year old urban professionals interested in sustainable living"
+• "Demographics: High income, college-educated, tech-savvy millennials"
+• "Platform preferences: Instagram and LinkedIn, avoid TikTok for this demographic"
+• "Brand affinities: Patagonia, Tesla, Whole Foods - values authenticity and sustainability"`
+              : `Tell me about your ${selectedNode?.name.toLowerCase()} ideas...
 
 Examples:
 • "Our brand is modern and minimalist with a focus on sustainability"
 • "The campaign should target Gen Z with an authentic, unfiltered tone"
-• "Think Apple meets Patagonia - clean design with environmental values"`}
+• "Think Apple meets Patagonia - clean design with environmental values"`
+          }
           className="w-full min-h-[120px] bg-transparent border-0 resize-none focus:outline-none text-sm leading-relaxed placeholder:text-muted-foreground"
           disabled={isLoading}
         />
