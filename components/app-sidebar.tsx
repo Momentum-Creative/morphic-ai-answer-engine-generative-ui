@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/sidebar'
 
 import { CreditsIndicator } from './credits-indicator'
+import { GlobalTodoSection } from './sidebar/global-todo-section'
 import { ProjectStructure } from './sidebar/project-structure'
 import { UserProfileSection } from './sidebar/user-profile-section'
 
@@ -68,6 +69,9 @@ export default function AppSidebar({ user }: AppSidebarProps) {
         </div>
         <div className="flex-1 overflow-y-auto px-2">
           <ProjectStructure />
+          <div className="mt-4">
+            <GlobalTodoSection />
+          </div>
         </div>
       </SidebarContent>
       <SidebarFooter className="px-2 py-3 border-t border-border/50">
