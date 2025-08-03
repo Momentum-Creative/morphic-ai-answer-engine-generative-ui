@@ -58,6 +58,7 @@ export function ChatPanel({
   const isFirstRender = useRef(true)
   const [isComposing, setIsComposing] = useState(false) // Composition state
   const [enterDisabled, setEnterDisabled] = useState(false) // Disable Enter after composition ends
+  const [isDragOver, setIsDragOver] = useState(false) // Drag over state for file upload
   const { close: closeArtifact } = useArtifact()
 
   const handleCompositionStart = () => setIsComposing(true)
