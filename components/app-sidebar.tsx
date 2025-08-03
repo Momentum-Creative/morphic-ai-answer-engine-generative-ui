@@ -16,6 +16,7 @@ import {
   SidebarTrigger
 } from '@/components/ui/sidebar'
 
+import { CreditsIndicator } from './credits-indicator'
 import { ProjectStructure } from './sidebar/project-structure'
 import { UserProfileSection } from './sidebar/user-profile-section'
 
@@ -63,6 +64,9 @@ export default function AppSidebar({ user }: AppSidebarProps) {
               </Link>
             </SidebarMenuItem>
           </SidebarMenu>
+        </div>
+        <div className="px-2 mb-4">
+          <CreditsIndicator />
         </div>
         <div className="flex-1 overflow-y-auto px-2">
           <ProjectStructure />
