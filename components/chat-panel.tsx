@@ -14,7 +14,7 @@ import { useArtifact } from './artifact/artifact-context'
 import { Button } from './ui/button'
 import { IconLogo } from './ui/icons'
 import { ConceptNodes } from './concept-nodes'
-import { CreditsIndicator } from './credits-indicator'
+
 import { EmptyScreen } from './empty-screen'
 import { ProjectIndicator } from './project-indicator'
 import { NotionEditor } from './notion-editor'
@@ -220,7 +220,7 @@ export function ChatPanel({
             {/* Traditional controls */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <CreditsIndicator />
+                {/* Credits moved to header */}
               </div>
               <div className="flex items-center gap-2">
                 {messages.length > 0 && (
