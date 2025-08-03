@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils'
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -65,13 +66,13 @@ export default function AppSidebar({ user }: AppSidebarProps) {
             </SidebarMenuItem>
           </SidebarMenu>
         </div>
-        <div className="px-2 mb-4">
-          <CreditsIndicator />
-        </div>
         <div className="flex-1 overflow-y-auto px-2">
           <ProjectStructure />
         </div>
       </SidebarContent>
+      <SidebarFooter className="px-2 py-3 border-t border-border/50">
+        <CreditsIndicator />
+      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   )
