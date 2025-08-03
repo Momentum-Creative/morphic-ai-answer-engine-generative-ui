@@ -5,7 +5,7 @@ import Textarea from 'react-textarea-autosize'
 import { useRouter } from 'next/navigation'
 
 import { Message } from 'ai'
-import { ArrowUp, ChevronDown, MessageCirclePlus, Square } from 'lucide-react'
+import { ArrowUp, ChevronDown, MessageCirclePlus, Square, Plus } from 'lucide-react'
 
 import { Model } from '@/lib/types/models'
 import { cn } from '@/lib/utils'
@@ -170,6 +170,31 @@ export function ChatPanel({
             )}
 
             <div className="relative flex items-center gap-3 bg-muted rounded-2xl border border-input p-3">
+              {/* File upload button */}
+              <input
+                type="file"
+                id="file-upload"
+                className="hidden"
+                accept="image/*,video/*,.pdf,.doc,.docx,.txt"
+                onChange={(e) => {
+                  const file = e.target.files?.[0]
+                  if (file) {
+                    console.log('File selected:', file.name)
+                    // Handle file upload here
+                  }
+                }}
+              />
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="size-8 rounded-full hover:bg-accent flex-shrink-0"
+                onClick={() => document.getElementById('file-upload')?.click()}
+                title="Upload file"
+              >
+                <Plus className="size-4 text-muted-foreground" />
+              </Button>
+
               <Textarea
                 ref={inputRef}
                 name="input"
