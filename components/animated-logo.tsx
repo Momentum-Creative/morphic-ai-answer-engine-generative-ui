@@ -11,8 +11,12 @@ export function AnimatedLogo() {
     <Link
       href="/"
       className="flex items-center gap-2 group relative"
-      onMouseEnter={() => setIsHovered(true)}
+      onMouseEnter={() => {
+        console.log('Logo hovered');
+        setIsHovered(true);
+      }}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => console.log('Logo clicked')}
     >
       {/* Logo with horizontal flip animation */}
       <div className="relative">
