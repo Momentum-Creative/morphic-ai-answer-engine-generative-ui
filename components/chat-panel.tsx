@@ -152,7 +152,7 @@ export function ChatPanel({
         </div>
       )}
       {/* New dedicated chat window for concept agent */}
-      <div className="fixed bottom-0 left-0 md:left-[var(--sidebar-width)] right-0 z-20 bg-background/95 backdrop-blur-sm border-t border-border">
+      <div className="fixed bottom-0 left-0 md:left-[var(--sidebar-width)] right-0 z-20">
         <div className="max-w-3xl mx-auto px-4 py-3">
           <form onSubmit={handleSubmit} className="relative">
             {/* Scroll to bottom button */}
@@ -169,7 +169,7 @@ export function ChatPanel({
               </Button>
             )}
 
-            <div className="relative flex items-center gap-3 bg-muted rounded-2xl border border-input p-3">
+            <div className="relative flex items-start gap-3 bg-background/80 backdrop-blur-sm rounded-2xl border border-border shadow-lg p-3">
               {/* File upload button */}
               <input
                 type="file"
@@ -199,7 +199,7 @@ export function ChatPanel({
                 ref={inputRef}
                 name="input"
                 rows={1}
-                maxRows={4}
+                maxRows={8}
                 tabIndex={0}
                 onCompositionStart={handleCompositionStart}
                 onCompositionEnd={handleCompositionEnd}
