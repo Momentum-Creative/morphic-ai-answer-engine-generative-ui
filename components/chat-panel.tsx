@@ -151,136 +151,100 @@ export function ChatPanel({
           </div>
         </div>
       )}
-      <form
-        onSubmit={handleSubmit}
-        className={cn('max-w-3xl w-full mx-auto relative')}
-      >
-        {/* Scroll to bottom button - only shown when showScrollToBottomButton is true */}
-        {showScrollToBottomButton && messages.length > 0 && (
-          <Button
-            type="button"
-            variant="outline"
-            size="icon"
-            className="absolute -top-10 right-4 z-20 size-8 rounded-full shadow-md"
-            onClick={handleScrollToBottom}
-            title="Scroll to bottom"
-          >
-            <ChevronDown size={16} />
-          </Button>
-        )}
+      {/* New dedicated chat window for concept agent */}
+      <div className="fixed bottom-0 left-0 right-0 z-20 bg-background/95 backdrop-blur-sm border-t border-border">
+        <div className="max-w-3xl mx-auto px-4 py-3">
+          <form onSubmit={handleSubmit} className="relative">
+            {/* Scroll to bottom button */}
+            {showScrollToBottomButton && messages.length > 0 && (
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                className="absolute -top-12 right-4 z-20 size-8 rounded-full shadow-md"
+                onClick={handleScrollToBottom}
+                title="Scroll to bottom"
+              >
+                <ChevronDown size={16} />
+              </Button>
+            )}
 
-        <div className={cn(
-          "relative flex flex-col w-full gap-2 bg-muted rounded-3xl border border-input",
-          messages.length === 0 && "opacity-60"
-        )}>
-          <Textarea
-            ref={inputRef}
-            name="input"
-            rows={2}
-            maxRows={5}
-            tabIndex={0}
-            onCompositionStart={handleCompositionStart}
-            onCompositionEnd={handleCompositionEnd}
-            placeholder={messages.length === 0 ? "Use the concept editor above to get started...\nAgent logic and responses will appear here." : "ask me anything and I'll make it happen"}
-            spellCheck={false}
-            value={input}
-            disabled={isLoading || isToolInvocationInProgress() || (messages.length === 0)}
-            className="resize-none w-full min-h-12 bg-transparent border-0 p-4 text-sm placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-            onChange={e => {
-              handleInputChange(e)
-              setShowEmptyScreen(e.target.value.length === 0)
-            }}
-            onKeyDown={e => {
-              if (
-                e.key === 'Enter' &&
-                !e.shiftKey &&
-                !isComposing &&
-                !enterDisabled
-              ) {
-                if (input.trim().length === 0) {
-                  e.preventDefault()
-                  return
-                }
-                e.preventDefault()
-                const textarea = e.target as HTMLTextAreaElement
-                textarea.form?.requestSubmit()
-              }
-            }}
-            onFocus={() => setShowEmptyScreen(true)}
-            onBlur={() => setShowEmptyScreen(false)}
-          />
+            <div className="relative flex items-center gap-3 bg-muted rounded-2xl border border-input p-3">
+              <Textarea
+                ref={inputRef}
+                name="input"
+                rows={1}
+                maxRows={4}
+                tabIndex={0}
+                onCompositionStart={handleCompositionStart}
+                onCompositionEnd={handleCompositionEnd}
+                placeholder="Ask the concept agent anything about your project..."
+                spellCheck={false}
+                value={input}
+                disabled={isLoading || isToolInvocationInProgress()}
+                className="resize-none flex-1 bg-transparent border-0 text-sm placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 min-h-[20px]"
+                onChange={e => {
+                  handleInputChange(e)
+                  setShowEmptyScreen(e.target.value.length === 0)
+                }}
+                onKeyDown={e => {
+                  if (
+                    e.key === 'Enter' &&
+                    !e.shiftKey &&
+                    !isComposing &&
+                    !enterDisabled
+                  ) {
+                    if (input.trim().length === 0) {
+                      e.preventDefault()
+                      return
+                    }
+                    e.preventDefault()
+                    const textarea = e.target as HTMLTextAreaElement
+                    textarea.form?.requestSubmit()
+                  }
+                }}
+                onFocus={() => setShowEmptyScreen(true)}
+                onBlur={() => setShowEmptyScreen(false)}
+              />
 
-          {/* Bottom menu area */}
-          <div className="p-3 space-y-3">
-            {/* Subtle divider */}
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-
-            {/* Concept nodes moved to main area above */}
-
-            {/* Traditional controls */}
-            <div className="flex items-center justify-end">
+              {/* Action buttons */}
               <div className="flex items-center gap-2">
                 {messages.length > 0 && (
                   <Button
-                    variant="outline"
+                    variant="ghost"
                     size="icon"
                     onClick={handleNewChat}
-                    className="shrink-0 rounded-full group"
+                    className="size-8 rounded-full hover:bg-accent"
                     type="button"
                     disabled={isLoading || isToolInvocationInProgress()}
+                    title="New chat"
                   >
-                    <MessageCirclePlus className="size-4 group-hover:rotate-12 transition-all" />
+                    <MessageCirclePlus className="size-4" />
                   </Button>
                 )}
 
-                {/* Conditional Generate Concept Button */}
-                {(() => {
-                  // Check if enough key nodes have content
-                  // For now, we'll use messages or expanded nodes as proxy for content
-                  // In real implementation, this would check specific concept node content
-                  const hasEnoughContent =
-                    messages.length > 0 || input.length > 20
-
-                  return hasEnoughContent ? (
-                    <Button
-                      type="button"
-                      size="default"
-                      className="bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white font-medium rounded-lg px-4 py-2 shadow-lg hover:shadow-xl transition-all duration-200 group"
-                      disabled={isLoading || isToolInvocationInProgress()}
-                      onClick={() => {
-                        // This would trigger the concept generation process
-                        console.log(
-                          'Generating concept with current node content...'
-                        )
-                      }}
-                    >
-                      <span className="group-hover:scale-105 transition-transform duration-200">
-                        Generate Concept
-                      </span>
-                    </Button>
-                  ) : (
-                    <Button
-                      type={isLoading ? 'button' : 'submit'}
-                      size={'icon'}
-                      variant={'outline'}
-                      className={cn(
-                        isLoading && 'animate-pulse',
-                        'rounded-full'
-                      )}
-                      disabled={
-                        (input.length === 0 && !isLoading) ||
-                        isToolInvocationInProgress()
-                      }
-                      onClick={isLoading ? stop : undefined}
-                    >
-                      {isLoading ? <Square size={20} /> : <ArrowUp size={20} />}
-                    </Button>
-                  )
-                })()}
+                <Button
+                  type={isLoading ? 'button' : 'submit'}
+                  size="icon"
+                  className={cn(
+                    "size-8 rounded-full",
+                    input.trim().length > 0
+                      ? "bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white shadow-md"
+                      : "bg-muted text-muted-foreground"
+                  )}
+                  disabled={
+                    (input.length === 0 && !isLoading) ||
+                    isToolInvocationInProgress()
+                  }
+                  onClick={isLoading ? stop : undefined}
+                >
+                  {isLoading ? <Square size={16} /> : <ArrowUp size={16} />}
+                </Button>
               </div>
             </div>
-          </div>
+          </form>
         </div>
+      </div>
 
         {messages.length === 0 && (
           <EmptyScreen
@@ -292,7 +256,6 @@ export function ChatPanel({
             className={cn(showEmptyScreen ? 'visible' : 'invisible')}
           />
         )}
-      </form>
     </div>
   )
 }
