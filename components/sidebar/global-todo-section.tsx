@@ -106,9 +106,9 @@ export function GlobalTodoSection() {
   }, [filteredTodos])
 
   const toggleTodo = (todoId: string) => {
-    setTodos(prev => 
-      prev.map(todo => 
-        todo.id === todoId 
+    setTodos(prev =>
+      prev.map(todo =>
+        todo.id === todoId
           ? { ...todo, completed: !todo.completed, isNew: false }
           : todo
       )
@@ -157,7 +157,7 @@ export function GlobalTodoSection() {
           )}
           <CheckSquare className="size-4 text-blue-500" />
           <span className="font-semibold text-foreground/80">To Do</span>
-          
+
           {/* Badge showing pending count */}
           {totalPending > 0 && (
             <div className="ml-auto flex items-center gap-1">
@@ -188,20 +188,22 @@ export function GlobalTodoSection() {
                     size="sm"
                     onClick={() => setActiveFilter(filter)}
                     className={cn(
-                      "h-7 px-2 text-xs flex items-center gap-1.5",
+                      'h-7 px-2 text-xs flex items-center gap-1.5',
                       isActive
-                        ? "bg-accent text-accent-foreground"
-                        : "text-muted-foreground hover:text-foreground"
+                        ? 'bg-accent text-accent-foreground'
+                        : 'text-muted-foreground hover:text-foreground'
                     )}
                   >
                     {getFilterIcon(filter)}
                     {count > 0 && (
-                      <span className={cn(
-                        "text-xs px-1.5 py-0.5 rounded-full",
-                        isActive
-                          ? "bg-background text-foreground"
-                          : "bg-muted text-muted-foreground"
-                      )}>
+                      <span
+                        className={cn(
+                          'text-xs px-1.5 py-0.5 rounded-full',
+                          isActive
+                            ? 'bg-background text-foreground'
+                            : 'bg-muted text-muted-foreground'
+                        )}
+                      >
                         {count}
                       </span>
                     )}
@@ -210,7 +212,9 @@ export function GlobalTodoSection() {
                   {/* Tooltip */}
                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 opacity-0 group-hover/filter:opacity-100 transition-opacity duration-200 pointer-events-none">
                     <div className="bg-popover border border-border rounded-md shadow-lg px-2 py-1 whitespace-nowrap">
-                      <span className="text-xs font-medium capitalize">{filter}</span>
+                      <span className="text-xs font-medium capitalize">
+                        {filter}
+                      </span>
                       <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-popover" />
                     </div>
                   </div>
@@ -230,64 +234,69 @@ export function GlobalTodoSection() {
                 </p>
               </div>
             ) : (
-              Object.entries(groupedTodos).map(([projectName, projectTodos]) => (
-                <div key={projectName} className="space-y-1">
-                  {/* Project name */}
-                  <div className="px-2">
-                    <h5 className="text-xs font-medium text-muted-foreground">
-                      {projectName}
-                    </h5>
-                  </div>
-                  
-                  {/* Project todos */}
-                  <div className="space-y-1">
-                    {projectTodos.map(todo => (
-                      <div key={todo.id} className="relative group/todo-item">
-                        <div className="w-full flex items-center gap-2 px-4 py-1.5 h-auto text-sm hover:bg-accent/50 rounded-md">
-                          {/* Checkbox - only this area toggles completion */}
-                          <button
-                            onClick={() => toggleTodo(todo.id)}
-                            className="flex-shrink-0 hover:scale-110 transition-transform duration-200"
-                          >
-                            {todo.completed ? (
-                              <CheckSquare className="w-4 h-4 text-green-500" />
-                            ) : (
-                              <Square className="w-4 h-4 text-muted-foreground hover:text-foreground" />
-                            )}
-                          </button>
+              Object.entries(groupedTodos).map(
+                ([projectName, projectTodos]) => (
+                  <div key={projectName} className="space-y-1">
+                    {/* Project name */}
+                    <div className="px-2">
+                      <h5 className="text-xs font-medium text-muted-foreground">
+                        {projectName}
+                      </h5>
+                    </div>
 
-                          {/* Task text - non-clickable, expands on hover */}
-                          <span
-                            className={cn(
-                              'flex-1 text-left transition-all duration-200',
-                              todo.completed && 'line-through text-muted-foreground'
-                            )}
-                          >
-                            <span className="truncate group-hover/todo-item:whitespace-normal group-hover/todo-item:break-words block">
-                              {todo.name}
+                    {/* Project todos */}
+                    <div className="space-y-1">
+                      {projectTodos.map(todo => (
+                        <div key={todo.id} className="relative group/todo-item">
+                          <div className="w-full flex items-center gap-2 px-4 py-1.5 h-auto text-sm hover:bg-accent/50 rounded-md">
+                            {/* Checkbox - only this area toggles completion */}
+                            <button
+                              onClick={() => toggleTodo(todo.id)}
+                              className="flex-shrink-0 hover:scale-110 transition-transform duration-200"
+                            >
+                              {todo.completed ? (
+                                <CheckSquare className="w-4 h-4 text-green-500" />
+                              ) : (
+                                <Square className="w-4 h-4 text-muted-foreground hover:text-foreground" />
+                              )}
+                            </button>
+
+                            {/* Task text - non-clickable, expands on hover */}
+                            <span
+                              className={cn(
+                                'flex-1 text-left transition-all duration-200',
+                                todo.completed &&
+                                  'line-through text-muted-foreground'
+                              )}
+                            >
+                              <span className="truncate group-hover/todo-item:whitespace-normal group-hover/todo-item:break-words block">
+                                {todo.name}
+                              </span>
                             </span>
-                          </span>
 
-                          {/* New indicator */}
-                          {todo.isNew && !todo.completed && (
-                            <div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0" />
+                            {/* New indicator */}
+                            {todo.isNew && !todo.completed && (
+                              <div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0" />
+                            )}
+                          </div>
+
+                          {/* Tooltip for very long text */}
+                          {todo.name.length > 30 && (
+                            <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 z-50 opacity-0 group-hover/todo-item:opacity-100 transition-opacity duration-300 pointer-events-none">
+                              <div className="bg-popover border border-border rounded-md shadow-lg px-3 py-2 max-w-xs">
+                                <span className="text-xs text-popover-foreground">
+                                  {todo.name}
+                                </span>
+                                <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-popover" />
+                              </div>
+                            </div>
                           )}
                         </div>
-
-                        {/* Tooltip for very long text */}
-                        {todo.name.length > 30 && (
-                          <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 z-50 opacity-0 group-hover/todo-item:opacity-100 transition-opacity duration-300 pointer-events-none">
-                            <div className="bg-popover border border-border rounded-md shadow-lg px-3 py-2 max-w-xs">
-                              <span className="text-xs text-popover-foreground">{todo.name}</span>
-                              <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-popover" />
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))
+                )
+              )
             )}
           </div>
         </div>

@@ -122,17 +122,21 @@ export function ConceptNodes() {
   }
 
   return (
-    <div className={cn(
-      "relative w-full transition-all duration-300",
-      selectedNodeId && "sticky top-20 z-30"
-    )}>
+    <div
+      className={cn(
+        'relative w-full transition-all duration-300',
+        selectedNodeId && 'sticky top-20 z-30'
+      )}
+    >
       {/* Main concept nodes bar */}
-      <div className={cn(
-        "flex items-center justify-center gap-3 p-4 rounded-2xl border backdrop-blur-sm shadow-sm transition-all duration-300",
-        selectedNodeId
-          ? "bg-background/95 border-primary/30 shadow-lg"
-          : "bg-background/80 border-border"
-      )}>
+      <div
+        className={cn(
+          'flex items-center justify-center gap-3 p-4 rounded-2xl border backdrop-blur-sm shadow-sm transition-all duration-300',
+          selectedNodeId
+            ? 'bg-background/95 border-primary/30 shadow-lg'
+            : 'bg-background/80 border-border'
+        )}
+      >
         {conceptNodes.map((node, index) => {
           const Icon = node.icon
           const isSelected = selectedNodeId === node.id
@@ -169,9 +173,12 @@ export function ConceptNodes() {
                     onMouseLeave={() => setHoveredNode(null)}
                     className={cn(
                       'h-12 w-12 rounded-full p-0 transition-all duration-200 border-2 border-transparent hover:border-border',
-                      isSelected && 'shadow-lg scale-110 border-primary ring-2 ring-primary/20',
+                      isSelected &&
+                        'shadow-lg scale-110 border-primary ring-2 ring-primary/20',
                       !isSelected && 'hover:scale-105 hover:shadow-md',
-                      hasContent && !isSelected && `ring-2 ring-${node.color.split('-')[1]}-400/50`
+                      hasContent &&
+                        !isSelected &&
+                        `ring-2 ring-${node.color.split('-')[1]}-400/50`
                     )}
                   >
                     <Icon className={cn('w-5 h-5', node.color)} />

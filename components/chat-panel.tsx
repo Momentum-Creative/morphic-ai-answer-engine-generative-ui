@@ -5,7 +5,13 @@ import Textarea from 'react-textarea-autosize'
 import { useRouter } from 'next/navigation'
 
 import { Message } from 'ai'
-import { ArrowUp, ChevronDown, MessageCirclePlus, Square, Plus } from 'lucide-react'
+import {
+  ArrowUp,
+  ChevronDown,
+  MessageCirclePlus,
+  Square,
+  Plus
+} from 'lucide-react'
 
 import { Model } from '@/lib/types/models'
 import { cn } from '@/lib/utils'
@@ -137,10 +143,10 @@ export function ChatPanel({
           {/* Notion-style editor for concept development */}
           <div className="w-full max-w-2xl mx-auto">
             <NotionEditor
-              onSubmit={(content) => {
+              onSubmit={content => {
                 if (selectedNodeId) {
                   // Create a formatted message that includes the node context
-                  const nodeMessage = `[${selectedNodeId.toUpperCase()}] ${content}`;
+                  const nodeMessage = `[${selectedNodeId.toUpperCase()}] ${content}`
                   append({
                     role: 'user',
                     content: nodeMessage
@@ -177,7 +183,7 @@ export function ChatPanel({
                 id="file-upload"
                 className="hidden"
                 accept="image/*,video/*,.pdf,.doc,.docx,.txt"
-                onChange={(e) => {
+                onChange={e => {
                   const file = e.target.files?.[0]
                   if (file) {
                     console.log('File selected:', file.name)
@@ -190,34 +196,39 @@ export function ChatPanel({
                 variant="ghost"
                 size="icon"
                 className={cn(
-                  "size-8 rounded-full flex-shrink-0 transition-colors duration-200",
+                  'size-8 rounded-full flex-shrink-0 transition-colors duration-200',
                   isDragOver
-                    ? "bg-primary/20 hover:bg-primary/30 border-2 border-primary border-dashed"
-                    : "hover:bg-accent"
+                    ? 'bg-primary/20 hover:bg-primary/30 border-2 border-primary border-dashed'
+                    : 'hover:bg-accent'
                 )}
                 onClick={() => document.getElementById('file-upload')?.click()}
-                onDragOver={(e) => {
+                onDragOver={e => {
                   e.preventDefault()
                   e.stopPropagation()
                   setIsDragOver(true)
                 }}
-                onDragEnter={(e) => {
+                onDragEnter={e => {
                   e.preventDefault()
                   e.stopPropagation()
                   setIsDragOver(true)
                 }}
-                onDragLeave={(e) => {
+                onDragLeave={e => {
                   e.preventDefault()
                   e.stopPropagation()
                   // Check if we're actually leaving the button element
                   const rect = e.currentTarget.getBoundingClientRect()
                   const x = e.clientX
                   const y = e.clientY
-                  if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
+                  if (
+                    x < rect.left ||
+                    x > rect.right ||
+                    y < rect.top ||
+                    y > rect.bottom
+                  ) {
                     setIsDragOver(false)
                   }
                 }}
-                onDrop={(e) => {
+                onDrop={e => {
                   e.preventDefault()
                   e.stopPropagation()
                   setIsDragOver(false)
@@ -232,10 +243,12 @@ export function ChatPanel({
                 }}
                 title="Upload file or drag and drop"
               >
-                <Plus className={cn(
-                  "size-4 transition-colors duration-200",
-                  isDragOver ? "text-primary" : "text-muted-foreground"
-                )} />
+                <Plus
+                  className={cn(
+                    'size-4 transition-colors duration-200',
+                    isDragOver ? 'text-primary' : 'text-muted-foreground'
+                  )}
+                />
               </Button>
 
               <Textarea
@@ -295,10 +308,10 @@ export function ChatPanel({
                   type={isLoading ? 'button' : 'submit'}
                   size="icon"
                   className={cn(
-                    "size-8 rounded-full",
+                    'size-8 rounded-full',
                     input.trim().length > 0
-                      ? "bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white shadow-md"
-                      : "bg-muted text-muted-foreground"
+                      ? 'bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white shadow-md'
+                      : 'bg-muted text-muted-foreground'
                   )}
                   disabled={
                     (input.length === 0 && !isLoading) ||
@@ -314,16 +327,16 @@ export function ChatPanel({
         </div>
       </div>
 
-        {messages.length === 0 && (
-          <EmptyScreen
-            submitMessage={message => {
-              handleInputChange({
-                target: { value: message }
-              } as React.ChangeEvent<HTMLTextAreaElement>)
-            }}
-            className={cn(showEmptyScreen ? 'visible' : 'invisible')}
-          />
-        )}
+      {messages.length === 0 && (
+        <EmptyScreen
+          submitMessage={message => {
+            handleInputChange({
+              target: { value: message }
+            } as React.ChangeEvent<HTMLTextAreaElement>)
+          }}
+          className={cn(showEmptyScreen ? 'visible' : 'invisible')}
+        />
+      )}
     </div>
   )
 }

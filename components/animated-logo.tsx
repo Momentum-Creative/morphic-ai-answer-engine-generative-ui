@@ -12,8 +12,8 @@ export function AnimatedLogo() {
       href="/"
       className="flex items-center gap-2 group relative"
       onMouseEnter={() => {
-        console.log('Logo hovered');
-        setIsHovered(true);
+        console.log('Logo hovered')
+        setIsHovered(true)
       }}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => console.log('Logo clicked')}

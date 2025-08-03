@@ -21,7 +21,9 @@ export function useConceptContext() {
 
 export function ConceptProvider({ children }: { children: ReactNode }) {
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null)
-  const [nodeContent, setNodeContentState] = useState<Record<string, string>>({})
+  const [nodeContent, setNodeContentState] = useState<Record<string, string>>(
+    {}
+  )
 
   const setNodeContent = (nodeId: string, content: string) => {
     setNodeContentState(prev => ({ ...prev, [nodeId]: content }))
