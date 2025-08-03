@@ -42,8 +42,8 @@ export function EmptyScreen({
           {exampleMessages.map((message, index) => (
             <Button
               key={index}
-              variant="link"
-              className="h-auto p-0 text-base"
+              variant="ghost"
+              className="h-auto p-2 text-sm text-left justify-start hover:bg-background/50 rounded-lg transition-colors w-full"
               name={message.message}
               onClick={async () => {
                 submitMessage(message.message)
