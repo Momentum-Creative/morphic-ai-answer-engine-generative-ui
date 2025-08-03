@@ -69,7 +69,7 @@ export default function AppSidebar({ user }: AppSidebarProps) {
         </div>
         <div className="flex-1 overflow-y-auto px-2">
           <ProjectStructure />
-          <div className="mt-4">
+          <div className="mt-4 pt-4 border-t border-border/50">
             <GlobalTodoSection />
           </div>
         </div>
