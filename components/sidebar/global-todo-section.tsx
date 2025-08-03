@@ -175,38 +175,46 @@ export function GlobalTodoSection() {
       {/* Expanded content */}
       {isExpanded && (
         <div className="ml-2 space-y-3">
-          {/* Filter tabs */}
+          {/* Filter tabs - icon only with hover tooltips */}
           <div className="flex items-center gap-1 px-2">
             {(['new', 'pending', 'completed'] as FilterType[]).map(filter => {
               const count = getFilterCount(filter)
               const isActive = activeFilter === filter
-              
+
               return (
-                <Button
-                  key={filter}
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setActiveFilter(filter)}
-                  className={cn(
-                    "h-7 px-2 text-xs flex items-center gap-1.5",
-                    isActive 
-                      ? "bg-accent text-accent-foreground" 
-                      : "text-muted-foreground hover:text-foreground"
-                  )}
-                >
-                  {getFilterIcon(filter)}
-                  <span className="capitalize">{filter}</span>
-                  {count > 0 && (
-                    <span className={cn(
-                      "text-xs px-1.5 py-0.5 rounded-full",
-                      isActive 
-                        ? "bg-background text-foreground" 
-                        : "bg-muted text-muted-foreground"
-                    )}>
-                      {count}
-                    </span>
-                  )}
-                </Button>
+                <div key={filter} className="relative group/filter">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setActiveFilter(filter)}
+                    className={cn(
+                      "h-7 px-2 text-xs flex items-center gap-1.5",
+                      isActive
+                        ? "bg-accent text-accent-foreground"
+                        : "text-muted-foreground hover:text-foreground"
+                    )}
+                  >
+                    {getFilterIcon(filter)}
+                    {count > 0 && (
+                      <span className={cn(
+                        "text-xs px-1.5 py-0.5 rounded-full",
+                        isActive
+                          ? "bg-background text-foreground"
+                          : "bg-muted text-muted-foreground"
+                      )}>
+                        {count}
+                      </span>
+                    )}
+                  </Button>
+
+                  {/* Tooltip */}
+                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 opacity-0 group-hover/filter:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    <div className="bg-popover border border-border rounded-md shadow-lg px-2 py-1 whitespace-nowrap">
+                      <span className="text-xs font-medium capitalize">{filter}</span>
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-popover" />
+                    </div>
+                  </div>
+                </div>
               )
             })}
           </div>
