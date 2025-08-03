@@ -13,6 +13,7 @@ const conceptNodes = [
   { id: 'story', name: 'Story', color: 'text-red-500' },
   { id: 'style', name: 'Style', color: 'text-pink-500' },
   { id: 'platform', name: 'Platform', color: 'text-indigo-500' },
+  { id: 'audience', name: 'Audience', color: 'text-emerald-500' },
   { id: 'production', name: 'Production Guide', color: 'text-teal-500' }
 ]
 
