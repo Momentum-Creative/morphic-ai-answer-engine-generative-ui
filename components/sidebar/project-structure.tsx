@@ -93,6 +93,10 @@ export function ProjectStructure() {
         { id: '7', name: 'Competitor Analysis', type: 'image' },
         { id: '8', name: 'Style References', type: 'image' }
       ]
+    },
+    concepts: {
+      isExpanded: false,
+      items: []
     }
   })
 
@@ -109,7 +113,8 @@ export function ProjectStructure() {
   const subFolderConfigs = [
     { key: 'briefs', name: 'Briefs', icon: FileText },
     { key: 'media', name: 'Media', icon: Folder },
-    { key: 'reference', name: 'Reference', icon: Folder }
+    { key: 'reference', name: 'Reference', icon: Folder },
+    { key: 'concepts', name: 'Concepts', icon: Folder }
   ]
 
   const stockTags = [
