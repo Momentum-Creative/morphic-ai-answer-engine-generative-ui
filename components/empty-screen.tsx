@@ -40,7 +40,7 @@ export function EmptyScreen({
   submitMessage: (message: string) => void
 }) {
   return (
-    <div className="mx-auto max-w-3xl">
+    <div>
       <div className="bg-background/80 backdrop-blur-sm p-4 rounded-2xl border border-border shadow-lg">
         <div className="flex flex-col items-start space-y-1">
           {exampleMessages.map((message, index) => (
