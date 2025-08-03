@@ -70,7 +70,7 @@ export function ProjectIndicator({
       )}
 
       {/* Project Association Indicator */}
-      <div className="flex items-center gap-2 px-3 py-1.5 bg-accent/50 rounded-full border border-border/50 backdrop-blur-sm">
+      <div className="flex flex-wrap items-center justify-center gap-2 px-3 py-1.5 bg-accent/50 rounded-full border border-border/50 backdrop-blur-sm transition-all duration-300">
         <Folder className="h-3 w-3 text-blue-500" />
         <span className="text-xs text-muted-foreground">for:</span>
 
@@ -109,7 +109,7 @@ export function ProjectIndicator({
             size="sm"
             onClick={generateConceptName}
             disabled={isGeneratingName}
-            className="ml-2 h-6 text-xs px-2"
+            className="ml-2 h-6 text-xs px-2 flex-shrink-0"
           >
             {isGeneratingName ? (
               <>
@@ -127,7 +127,7 @@ export function ProjectIndicator({
           <Button
             variant="outline"
             size="sm"
-            className="ml-2 h-6 text-xs px-2 gap-1"
+            className="ml-2 h-6 text-xs px-2 gap-1 flex-shrink-0"
             title="Save concept to project"
           >
             <Save className="h-2 w-2" />
