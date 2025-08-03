@@ -85,7 +85,7 @@ export default async function RootLayout({
               <div className="relative z-30">
                 <AppSidebar user={user} />
               </div>
-              <div className="flex flex-col flex-1 relative z-25">
+              <div className="flex flex-col flex-1 relative z-40">
                 <Header user={user} />
                 <main className="flex flex-1 min-h-0">
                   <ArtifactRoot>{children}</ArtifactRoot>
