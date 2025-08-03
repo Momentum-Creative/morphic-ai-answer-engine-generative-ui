@@ -10,7 +10,8 @@ import {
   FileText,
   Brush,
   Monitor,
-  ClipboardList
+  ClipboardList,
+  Users
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from './ui/button'
@@ -89,6 +90,14 @@ const conceptNodes: ConceptNode[] = [
     icon: Monitor,
     color: 'text-indigo-500',
     description: 'Platform specifications'
+  },
+  {
+    id: 'audience',
+    name: 'Audience',
+    shortName: 'A',
+    icon: Users,
+    color: 'text-emerald-500',
+    description: 'Target audience and demographics'
   },
   {
     id: 'production',
