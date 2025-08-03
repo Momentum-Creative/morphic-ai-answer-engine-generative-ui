@@ -4,20 +4,28 @@ import { Button } from '@/components/ui/button'
 
 const exampleMessages = [
   {
-    heading: 'What is DeepSeek R1?',
-    message: 'What is DeepSeek R1?'
+    heading: 'What kind of campaign themes would resonate best with Gen Z on TikTok for this project',
+    message: 'What kind of campaign themes would resonate best with Gen Z on TikTok for this project'
   },
   {
-    heading: 'Why is Nvidia growing rapidly?',
-    message: 'Why is Nvidia growing rapidly?'
+    heading: 'Can you generate a moodboard that fits our brand guidelines?',
+    message: 'Can you generate a moodboard that fits our brand guidelines?'
   },
   {
-    heading: 'Tesla vs Rivian',
-    message: 'Tesla vs Rivian'
+    heading: 'Give me a few high-concept ideas that combine humor and social proof.',
+    message: 'Give me a few high-concept ideas that combine humor and social proof.'
   },
   {
-    heading: 'Summary: https://arxiv.org/pdf/2501.05707',
-    message: 'Summary: https://arxiv.org/pdf/2501.05707'
+    heading: 'Turn this idea into a short script and visual outline.',
+    message: 'Turn this idea into a short script and visual outline.'
+  },
+  {
+    heading: 'Can you help me brainstorm a funny video idea about remote work?',
+    message: 'Can you help me brainstorm a funny video idea about remote work?'
+  },
+  {
+    heading: 'Can you co-write an opening line that hooks the viewer in 3 seconds?',
+    message: 'Can you co-write an opening line that hooks the viewer in 3 seconds?'
   }
 ]
 export function EmptyScreen({
