@@ -118,11 +118,11 @@ export function ChatPanel({
     <div
       className={cn(
         'w-full bg-transparent group/form-container',
-        messages.length > 0 ? 'sticky bottom-0 px-2 pb-4 z-10' : 'px-6'
+        messages.length > 0 ? 'sticky bottom-0 px-2 pb-4 z-10' : 'px-6 pt-4'
       )}
     >
       {messages.length === 0 && (
-        <div className="mb-10 flex flex-col items-center gap-6">
+        <div className="mb-10 flex flex-col items-center gap-6 pt-20">
           <ProjectIndicator conceptProgress={messages.length > 0 ? 50 : 0} />
           <p className="text-center text-3xl font-semibold">
             Video Concept Copilot
