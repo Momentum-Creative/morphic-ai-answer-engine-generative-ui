@@ -115,7 +115,7 @@ export function ConceptNodes() {
   return (
     <div className="relative w-full">
       {/* Main concept nodes bar */}
-      <div className="flex items-center justify-center gap-2 p-3 bg-muted/50 rounded-2xl border border-border backdrop-blur-sm">
+      <div className="flex items-center justify-center gap-3 p-4 bg-background/80 rounded-2xl border border-border backdrop-blur-sm shadow-sm">
         {conceptNodes.map((node, index) => {
           const Icon = node.icon
           const isSelected = selectedNodeId === node.id
@@ -151,12 +151,13 @@ export function ConceptNodes() {
                     onMouseEnter={() => setHoveredNode(node.id)}
                     onMouseLeave={() => setHoveredNode(null)}
                     className={cn(
-                      'h-10 w-10 rounded-full p-0 transition-all duration-200',
-                      isSelected && 'shadow-lg scale-110',
-                      hasContent && `ring-1 ring-${node.color.split('-')[1]}-400/50`
+                      'h-12 w-12 rounded-full p-0 transition-all duration-200 border-2 border-transparent hover:border-border',
+                      isSelected && 'shadow-lg scale-110 border-primary',
+                      !isSelected && 'hover:scale-105 hover:shadow-md',
+                      hasContent && `ring-2 ring-${node.color.split('-')[1]}-400/50`
                     )}
                   >
-                    <Icon className={cn('w-4 h-4', node.color)} />
+                    <Icon className={cn('w-5 h-5', node.color)} />
                   </Button>
                 </div>
 
