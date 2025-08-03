@@ -252,7 +252,7 @@ export function ConceptNodes() {
                   >
                     {hasContent
                       ? `${node.name} content ready ✓`
-                      : `Use the main editor below to develop your ${node.name.toLowerCase()} concept`}
+                      : `Use the main editor below to develop your ${getNodeInstructionText(node.id)}`}
                   </span>
                 </div>
               </div>
