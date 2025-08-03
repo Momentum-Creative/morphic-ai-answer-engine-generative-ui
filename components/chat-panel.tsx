@@ -263,7 +263,7 @@ export function ChatPanel({
                 spellCheck={false}
                 value={input}
                 disabled={isLoading || isToolInvocationInProgress()}
-                className="resize-none flex-1 bg-transparent border-0 text-sm placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 min-h-[20px]"
+                className="resize-none flex-1 bg-transparent border-0 text-sm placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 min-h-[20px] py-2"
                 onChange={e => {
                   handleInputChange(e)
                   setShowEmptyScreen(e.target.value.length === 0)
@@ -328,14 +328,20 @@ export function ChatPanel({
       </div>
 
       {messages.length === 0 && (
-        <EmptyScreen
-          submitMessage={message => {
-            handleInputChange({
-              target: { value: message }
-            } as React.ChangeEvent<HTMLTextAreaElement>)
-          }}
-          className={cn(showEmptyScreen ? 'visible' : 'invisible')}
-        />
+        <div className="fixed bottom-32 left-0 md:left-[var(--sidebar-width)] right-0 z-30 transition-all duration-300 pointer-events-none">
+          <div className={cn(
+            "pointer-events-auto transition-opacity duration-200",
+            showEmptyScreen ? 'visible opacity-100' : 'invisible opacity-0'
+          )}>
+            <EmptyScreen
+              submitMessage={message => {
+                handleInputChange({
+                  target: { value: message }
+                } as React.ChangeEvent<HTMLTextAreaElement>)
+              }}
+            />
+          </div>
+        </div>
       )}
     </div>
   )
