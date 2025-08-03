@@ -43,7 +43,7 @@ export function EmptyScreen({
             <Button
               key={index}
               variant="ghost"
-              className="h-auto p-2 text-sm text-left justify-start hover:bg-background/50 rounded-lg transition-colors w-full"
+              className="h-auto p-3 text-sm text-left justify-start hover:bg-background/50 rounded-lg transition-colors w-full"
               name={message.message}
               onClick={async () => {
                 submitMessage(message.message)
