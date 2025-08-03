@@ -189,11 +189,53 @@ export function ChatPanel({
                 type="button"
                 variant="ghost"
                 size="icon"
-                className="size-8 rounded-full hover:bg-accent flex-shrink-0"
+                className={cn(
+                  "size-8 rounded-full flex-shrink-0 transition-colors duration-200",
+                  isDragOver
+                    ? "bg-primary/20 hover:bg-primary/30 border-2 border-primary border-dashed"
+                    : "hover:bg-accent"
+                )}
                 onClick={() => document.getElementById('file-upload')?.click()}
-                title="Upload file"
+                onDragOver={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  setIsDragOver(true)
+                }}
+                onDragEnter={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  setIsDragOver(true)
+                }}
+                onDragLeave={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  // Check if we're actually leaving the button element
+                  const rect = e.currentTarget.getBoundingClientRect()
+                  const x = e.clientX
+                  const y = e.clientY
+                  if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
+                    setIsDragOver(false)
+                  }
+                }}
+                onDrop={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  setIsDragOver(false)
+
+                  const files = Array.from(e.dataTransfer.files)
+                  if (files.length > 0) {
+                    const file = files[0]
+                    console.log('File dropped:', file.name)
+                    // Handle file drop here - same logic as file input
+                    // You could trigger the same onChange logic or create a custom handler
+                  }
+                }}
+                title="Upload file or drag and drop"
               >
-                <Plus className="size-4 text-muted-foreground" />
+                <Plus className={cn(
+                  "size-4 transition-colors duration-200",
+                  isDragOver ? "text-primary" : "text-muted-foreground"
+                )} />
               </Button>
 
               <Textarea
