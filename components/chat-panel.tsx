@@ -218,10 +218,7 @@ export function ChatPanel({
             {/* Concept nodes moved to main area above */}
 
             {/* Traditional controls */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                {/* Credits moved to header */}
-              </div>
+            <div className="flex items-center justify-end">
               <div className="flex items-center gap-2">
                 {messages.length > 0 && (
                   <Button
