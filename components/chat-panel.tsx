@@ -159,8 +159,8 @@ export function ChatPanel({
         </div>
       )}
       {/* New dedicated chat window for concept agent */}
-      <div className="fixed bottom-8 left-0 md:left-[var(--sidebar-width)] right-0 z-20">
-        <div className="max-w-3xl mx-auto px-4 pb-6">
+      <div className="fixed bottom-8 left-0 md:left-[var(--sidebar-width)] right-0 z-20 transition-all duration-300">
+        <div className="w-full max-w-3xl mx-auto px-4 pb-6">
           <form onSubmit={handleSubmit} className="relative">
             {/* Scroll to bottom button */}
             {showScrollToBottomButton && messages.length > 0 && (
