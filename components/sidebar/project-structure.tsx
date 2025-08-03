@@ -190,7 +190,7 @@ export function ProjectStructure() {
             variant="ghost"
             size="sm"
             onClick={() => toggleFolder('my-first-project')}
-            className="w-full justify-start gap-2 px-2 py-1.5 h-auto text-sm hover:bg-accent -mt-px"
+            className="w-full justify-start gap-2 pr-2 pl-0 py-1.5 h-auto text-sm hover:bg-accent -mt-px"
           >
             {folders['my-first-project']?.isExpanded ? (
               <ChevronDown className="size-4" />
