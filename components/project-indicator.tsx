@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Folder, ChevronDown } from 'lucide-react'
+import { Folder, ChevronDown, Save } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from './ui/button'
 import {
@@ -121,26 +121,41 @@ export function ProjectIndicator({
             )}
           </Button>
         )}
+
+        {/* Save to Project Button */}
+        {conceptName && (
+          <Button
+            variant="outline"
+            size="sm"
+            className="ml-2 h-6 text-xs px-2 gap-1"
+            title="Save concept to project"
+          >
+            <Save className="h-2 w-2" />
+            Save
+          </Button>
+        )}
       </div>
 
       {/* Regenerate option for existing concept name */}
       {conceptName && (
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={generateConceptName}
-          disabled={isGeneratingName}
-          className="mt-1 h-5 text-xs text-muted-foreground hover:text-foreground px-2"
-        >
-          {isGeneratingName ? (
-            <>
-              <div className="animate-spin rounded-full h-2 w-2 border-b border-current mr-1" />
-              Regen...
-            </>
-          ) : (
-            'Regenerate'
-          )}
-        </Button>
+        <div className="flex items-center gap-2 mt-1">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={generateConceptName}
+            disabled={isGeneratingName}
+            className="h-5 text-xs text-muted-foreground hover:text-foreground px-2"
+          >
+            {isGeneratingName ? (
+              <>
+                <div className="animate-spin rounded-full h-2 w-2 border-b border-current mr-1" />
+                Regen...
+              </>
+            ) : (
+              'Regenerate'
+            )}
+          </Button>
+        </div>
       )}
     </div>
   )
