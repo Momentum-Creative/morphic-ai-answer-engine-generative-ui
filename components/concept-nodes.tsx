@@ -122,9 +122,17 @@ export function ConceptNodes() {
   }
 
   return (
-    <div className="relative w-full">
+    <div className={cn(
+      "relative w-full transition-all duration-300",
+      selectedNodeId && "sticky top-20 z-30"
+    )}>
       {/* Main concept nodes bar */}
-      <div className="flex items-center justify-center gap-3 p-4 bg-background/80 rounded-2xl border border-border backdrop-blur-sm shadow-sm">
+      <div className={cn(
+        "flex items-center justify-center gap-3 p-4 rounded-2xl border backdrop-blur-sm shadow-sm transition-all duration-300",
+        selectedNodeId
+          ? "bg-background/95 border-primary/30 shadow-lg"
+          : "bg-background/80 border-border"
+      )}>
         {conceptNodes.map((node, index) => {
           const Icon = node.icon
           const isSelected = selectedNodeId === node.id
