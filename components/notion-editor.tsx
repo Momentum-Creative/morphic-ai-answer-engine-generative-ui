@@ -59,14 +59,13 @@ export function NotionEditor({ onSubmit, isLoading }: NotionEditorProps) {
 
   if (!selectedNodeId) {
     return (
-      <div className="flex flex-col items-center justify-center py-12 text-center">
-        <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4">
-          <span className="text-2xl">✨</span>
+      <div className="flex flex-col items-center justify-center py-8 text-center">
+        <div className="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500/20 to-blue-600/20 flex items-center justify-center mb-3">
+          <span className="text-lg">✨</span>
         </div>
-        <h3 className="text-lg font-medium mb-2">Select a concept node to begin</h3>
-        <p className="text-sm text-muted-foreground max-w-md">
-          Choose one of the concept nodes above to start developing your video concept. 
-          Your input will be processed by our AI to populate the relevant fields.
+        <h3 className="text-base font-medium mb-2">Click a concept node above to start</h3>
+        <p className="text-xs text-muted-foreground max-w-sm">
+          Select Brand, Tone, Story, or any other node to begin developing your video concept with AI assistance.
         </p>
       </div>
     )
