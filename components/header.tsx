@@ -11,6 +11,7 @@ import { useSidebar } from '@/components/ui/sidebar'
 
 // import { Button } from './ui/button' // No longer needed directly here for Sign In button
 import { AnimatedLogo } from './animated-logo'
+import { CreditsIndicator } from './credits-indicator'
 import GuestMenu from './guest-menu' // Import the new GuestMenu component
 import { NotificationPanel } from './notification-panel'
 import UserMenu from './user-menu'
@@ -33,6 +34,7 @@ export const Header: React.FC<HeaderProps> = ({ user }) => {
       <div></div>
 
       <div className="flex items-center gap-4">
+        <CreditsIndicator className="hidden sm:flex" />
         <AnimatedLogo />
         <NotificationPanel />
         {user ? <UserMenu user={user} /> : <GuestMenu />}
