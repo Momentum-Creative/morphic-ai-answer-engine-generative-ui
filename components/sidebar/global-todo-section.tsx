@@ -143,12 +143,12 @@ export function GlobalTodoSection() {
   return (
     <div className="space-y-2">
       {/* Header */}
-      <div className="px-2 py-2">
+      <div className="py-2 pr-2 pl-0">
         <Button
           variant="ghost"
           size="sm"
           onClick={() => setIsExpanded(!isExpanded)}
-          className="w-full justify-start gap-2 px-2 py-1.5 h-auto text-sm hover:bg-accent"
+          className="w-full justify-start gap-2 py-1.5 pr-2 pl-0 h-auto text-sm hover:bg-accent"
         >
           {isExpanded ? (
             <ChevronDown className="size-4" />
