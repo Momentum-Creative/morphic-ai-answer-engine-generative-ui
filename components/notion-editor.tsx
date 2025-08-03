@@ -82,7 +82,16 @@ export function NotionEditor({ onSubmit, isLoading }: NotionEditorProps) {
         <div
           className={cn(
             'w-2 h-2 rounded-full flex-shrink-0',
-            selectedNode?.color.replace('text-', 'bg-')
+            selectedNode?.id === 'brand' && 'bg-blue-500',
+            selectedNode?.id === 'trend' && 'bg-green-500',
+            selectedNode?.id === 'tone' && 'bg-purple-500',
+            selectedNode?.id === 'references' && 'bg-orange-500',
+            selectedNode?.id === 'inspo' && 'bg-yellow-500',
+            selectedNode?.id === 'story' && 'bg-red-500',
+            selectedNode?.id === 'style' && 'bg-pink-500',
+            selectedNode?.id === 'platform' && 'bg-indigo-500',
+            selectedNode?.id === 'audience' && 'bg-emerald-500',
+            selectedNode?.id === 'production' && 'bg-teal-500'
           )}
         />
         <span className="text-sm font-medium">
