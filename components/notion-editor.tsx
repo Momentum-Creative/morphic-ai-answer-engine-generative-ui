@@ -81,7 +81,7 @@ export function NotionEditor({ onSubmit, isLoading }: NotionEditorProps) {
       <div className="flex items-center gap-2 pb-2 border-b border-border/30">
         <div
           className={cn(
-            'w-2 h-2 rounded-full',
+            'w-2 h-2 rounded-full flex-shrink-0',
             selectedNode?.color.replace('text-', 'bg-')
           )}
         />
