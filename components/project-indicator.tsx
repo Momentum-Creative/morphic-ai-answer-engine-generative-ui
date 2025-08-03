@@ -58,7 +58,7 @@ export function ProjectIndicator({
   }, [conceptProgress, conceptName, isGeneratingName])
 
   return (
-    <div className={cn('flex flex-col items-center mb-6', className)}>
+    <div className={cn('sticky top-14 z-40 bg-background/80 backdrop-blur-sm py-4 flex flex-col items-center mb-6', className)}>
       {/* Concept Name Display */}
       {conceptName && (
         <div className="mb-2 text-center">
