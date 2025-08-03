@@ -117,8 +117,8 @@ export function ChatPanel({
   return (
     <div
       className={cn(
-        'w-full bg-transparent group/form-container',
-        messages.length > 0 ? 'sticky bottom-0 px-2 pb-4 z-10' : 'px-6 pt-4 mt-4'
+        'w-full bg-transparent group/form-container pb-20',
+        messages.length > 0 ? 'px-2' : 'px-6 pt-4 mt-4'
       )}
     >
       {messages.length === 0 && (
