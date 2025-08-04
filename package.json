@@ -93,3 +93,8 @@
     "bun": "1.2.12"
   }
 }
+{
+  "scripts": {
+    "lint:fix": "next lint --fix"
+  }
+}
