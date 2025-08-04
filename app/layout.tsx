@@ -11,7 +11,10 @@ import { Toaster } from '@/components/ui/sonner'
 
 import AppSidebar from '@/components/app-sidebar'
 import ArtifactRoot from '@/components/artifact/artifact-root'
+import { BrandCreatorWrapper } from '@/components/brand-creator-wrapper'
 import Header from '@/components/header'
+import { NotificationProvider } from '@/components/notification-context'
+import { SplineBackground } from '@/components/spline-background'
 import { ThemeProvider } from '@/components/theme-provider'
 
 import './globals.css'
@@ -68,10 +71,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={cn(
-          'min-h-screen flex flex-col font-sans antialiased',
-          fontSans.variable
-        )}
+        className={cn('min-h-screen font-sans antialiased', fontSans.variable)}
       >
         <ThemeProvider
           attribute="class"
@@ -79,17 +79,23 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SidebarProvider defaultOpen>
-            <AppSidebar />
-            <div className="flex flex-col flex-1">
-              <Header user={user} />
-              <main className="flex flex-1 min-h-0">
-                <ArtifactRoot>{children}</ArtifactRoot>
-              </main>
-            </div>
-          </SidebarProvider>
-          <Toaster />
-          <Analytics />
+          <NotificationProvider>
+            <SplineBackground />
+            <SidebarProvider defaultOpen>
+              <div className="relative z-30">
+                <AppSidebar user={user} />
+              </div>
+              <div className="flex flex-col flex-1 relative z-40">
+                <Header user={user} />
+                <main className="flex flex-1 min-h-0">
+                  <ArtifactRoot>{children}</ArtifactRoot>
+                </main>
+              </div>
+            </SidebarProvider>
+            <Toaster />
+            <Analytics />
+            <BrandCreatorWrapper />
+          </NotificationProvider>
         </ThemeProvider>
       </body>
     </html>

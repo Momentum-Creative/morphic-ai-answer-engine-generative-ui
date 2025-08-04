@@ -13,6 +13,7 @@ import { cn } from '@/lib/utils'
 
 import { ChatMessages } from './chat-messages'
 import { ChatPanel } from './chat-panel'
+import { ConceptProvider } from './concept-context'
 
 // Define section structure
 interface ChatSection {
@@ -203,38 +204,40 @@ export function Chat({
   }
 
   return (
-    <div
-      className={cn(
-        'relative flex h-full min-w-0 flex-1 flex-col',
-        messages.length === 0 ? 'items-center justify-center' : ''
-      )}
-      data-testid="full-chat"
-    >
-      <ChatMessages
-        sections={sections}
-        data={data}
-        onQuerySelect={onQuerySelect}
-        isLoading={isLoading}
-        chatId={id}
-        addToolResult={addToolResult}
-        scrollContainerRef={scrollContainerRef}
-        onUpdateMessage={handleUpdateAndReloadMessage}
-        reload={handleReloadFrom}
-      />
-      <ChatPanel
-        input={input}
-        handleInputChange={handleInputChange}
-        handleSubmit={onSubmit}
-        isLoading={isLoading}
-        messages={messages}
-        setMessages={setMessages}
-        stop={stop}
-        query={query}
-        append={append}
-        models={models}
-        showScrollToBottomButton={!isAtBottom}
-        scrollContainerRef={scrollContainerRef}
-      />
-    </div>
+    <ConceptProvider>
+      <div
+        className={cn(
+          'relative flex min-h-screen min-w-0 flex-1 flex-col bg-transparent',
+          messages.length === 0 ? 'items-center justify-center' : ''
+        )}
+        data-testid="full-chat"
+      >
+        <ChatMessages
+          sections={sections}
+          data={data}
+          onQuerySelect={onQuerySelect}
+          isLoading={isLoading}
+          chatId={id}
+          addToolResult={addToolResult}
+          scrollContainerRef={scrollContainerRef}
+          onUpdateMessage={handleUpdateAndReloadMessage}
+          reload={handleReloadFrom}
+        />
+        <ChatPanel
+          input={input}
+          handleInputChange={handleInputChange}
+          handleSubmit={onSubmit}
+          isLoading={isLoading}
+          messages={messages}
+          setMessages={setMessages}
+          stop={stop}
+          query={query}
+          append={append}
+          models={models}
+          showScrollToBottomButton={!isAtBottom}
+          scrollContainerRef={scrollContainerRef}
+        />
+      </div>
+    </ConceptProvider>
   )
 }

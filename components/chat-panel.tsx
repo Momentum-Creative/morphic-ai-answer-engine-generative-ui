@@ -5,7 +5,13 @@ import Textarea from 'react-textarea-autosize'
 import { useRouter } from 'next/navigation'
 
 import { Message } from 'ai'
-import { ArrowUp, ChevronDown, MessageCirclePlus, Square } from 'lucide-react'
+import {
+  ArrowUp,
+  ChevronDown,
+  MessageCirclePlus,
+  Square,
+  Plus
+} from 'lucide-react'
 
 import { Model } from '@/lib/types/models'
 import { cn } from '@/lib/utils'
@@ -13,9 +19,12 @@ import { cn } from '@/lib/utils'
 import { useArtifact } from './artifact/artifact-context'
 import { Button } from './ui/button'
 import { IconLogo } from './ui/icons'
+import { ConceptNodes } from './concept-nodes'
+
 import { EmptyScreen } from './empty-screen'
-import { ModelSelector } from './model-selector'
-import { SearchModeToggle } from './search-mode-toggle'
+import { ProjectIndicator } from './project-indicator'
+import { NotionEditor } from './notion-editor'
+import { useConceptContext } from './concept-context'
 
 interface ChatPanelProps {
   input: string
@@ -48,12 +57,14 @@ export function ChatPanel({
   showScrollToBottomButton,
   scrollContainerRef
 }: ChatPanelProps) {
+  const { selectedNodeId } = useConceptContext()
   const [showEmptyScreen, setShowEmptyScreen] = useState(false)
   const router = useRouter()
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const isFirstRender = useRef(true)
   const [isComposing, setIsComposing] = useState(false) // Composition state
   const [enterDisabled, setEnterDisabled] = useState(false) // Disable Enter after composition ends
+  const [isDragOver, setIsDragOver] = useState(false) // Drag over state for file upload
   const { close: closeArtifact } = useArtifact()
 
   const handleCompositionStart = () => setIsComposing(true)
@@ -113,121 +124,231 @@ export function ChatPanel({
   return (
     <div
       className={cn(
-        'w-full bg-background group/form-container shrink-0',
-        messages.length > 0 ? 'sticky bottom-0 px-2 pb-4' : 'px-6'
+        'w-full bg-transparent group/form-container pb-32',
+        messages.length > 0 ? 'px-2' : 'px-6 pt-4 mt-4'
       )}
     >
       {messages.length === 0 && (
-        <div className="mb-10 flex flex-col items-center gap-4">
-          <IconLogo className="size-12 text-muted-foreground" />
+        <div className="mb-10 flex flex-col items-center gap-6 pt-5">
+          <div className="w-full max-w-3xl mx-auto px-4">
+            <ProjectIndicator conceptProgress={messages.length > 0 ? 50 : 0} />
+          </div>
           <p className="text-center text-3xl font-semibold">
-            How can I help you today?
+            Video Concept Copilot
           </p>
+
+          {/* Concept nodes */}
+          <div className="w-full max-w-3xl mx-auto mb-6">
+            <ConceptNodes />
+          </div>
+
+          {/* Notion-style editor for concept development */}
+          <div className="w-full max-w-2xl mx-auto">
+            <NotionEditor
+              onSubmit={content => {
+                if (selectedNodeId) {
+                  // Create a formatted message that includes the node context
+                  const nodeMessage = `[${selectedNodeId.toUpperCase()}] ${content}`
+                  append({
+                    role: 'user',
+                    content: nodeMessage
+                  })
+                }
+              }}
+              isLoading={isLoading}
+            />
+          </div>
         </div>
       )}
-      <form
-        onSubmit={handleSubmit}
-        className={cn('max-w-3xl w-full mx-auto relative')}
-      >
-        {/* Scroll to bottom button - only shown when showScrollToBottomButton is true */}
-        {showScrollToBottomButton && messages.length > 0 && (
-          <Button
-            type="button"
-            variant="outline"
-            size="icon"
-            className="absolute -top-10 right-4 z-20 size-8 rounded-full shadow-md"
-            onClick={handleScrollToBottom}
-            title="Scroll to bottom"
-          >
-            <ChevronDown size={16} />
-          </Button>
-        )}
-
-        <div className="relative flex flex-col w-full gap-2 bg-muted rounded-3xl border border-input">
-          <Textarea
-            ref={inputRef}
-            name="input"
-            rows={2}
-            maxRows={5}
-            tabIndex={0}
-            onCompositionStart={handleCompositionStart}
-            onCompositionEnd={handleCompositionEnd}
-            placeholder="Ask a question..."
-            spellCheck={false}
-            value={input}
-            disabled={isLoading || isToolInvocationInProgress()}
-            className="resize-none w-full min-h-12 bg-transparent border-0 p-4 text-sm placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-            onChange={e => {
-              handleInputChange(e)
-              setShowEmptyScreen(e.target.value.length === 0)
-            }}
-            onKeyDown={e => {
-              if (
-                e.key === 'Enter' &&
-                !e.shiftKey &&
-                !isComposing &&
-                !enterDisabled
-              ) {
-                if (input.trim().length === 0) {
-                  e.preventDefault()
-                  return
-                }
-                e.preventDefault()
-                const textarea = e.target as HTMLTextAreaElement
-                textarea.form?.requestSubmit()
-              }
-            }}
-            onFocus={() => setShowEmptyScreen(true)}
-            onBlur={() => setShowEmptyScreen(false)}
-          />
-
-          {/* Bottom menu area */}
-          <div className="flex items-center justify-between p-3">
-            <div className="flex items-center gap-2">
-              <ModelSelector models={models || []} />
-              <SearchModeToggle />
-            </div>
-            <div className="flex items-center gap-2">
-              {messages.length > 0 && (
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={handleNewChat}
-                  className="shrink-0 rounded-full group"
-                  type="button"
-                  disabled={isLoading || isToolInvocationInProgress()}
-                >
-                  <MessageCirclePlus className="size-4 group-hover:rotate-12 transition-all" />
-                </Button>
-              )}
+      {/* New dedicated chat window for concept agent */}
+      <div className="fixed bottom-8 left-0 md:left-[var(--sidebar-width)] right-0 z-20 transition-all duration-300">
+        <div className="w-full max-w-3xl mx-auto px-4 pb-6">
+          <form onSubmit={handleSubmit} className="relative">
+            {/* Scroll to bottom button */}
+            {showScrollToBottomButton && messages.length > 0 && (
               <Button
-                type={isLoading ? 'button' : 'submit'}
-                size={'icon'}
-                variant={'outline'}
-                className={cn(isLoading && 'animate-pulse', 'rounded-full')}
-                disabled={
-                  (input.length === 0 && !isLoading) ||
-                  isToolInvocationInProgress()
-                }
-                onClick={isLoading ? stop : undefined}
+                type="button"
+                variant="outline"
+                size="icon"
+                className="absolute -top-12 right-4 z-20 size-8 rounded-full shadow-md"
+                onClick={handleScrollToBottom}
+                title="Scroll to bottom"
               >
-                {isLoading ? <Square size={20} /> : <ArrowUp size={20} />}
+                <ChevronDown size={16} />
               </Button>
+            )}
+
+            <div className="relative flex items-start gap-3 bg-background/80 backdrop-blur-sm rounded-2xl border border-border shadow-lg p-3">
+              {/* File upload button */}
+              <input
+                type="file"
+                id="file-upload"
+                className="hidden"
+                accept="image/*,video/*,.pdf,.doc,.docx,.txt"
+                onChange={e => {
+                  const file = e.target.files?.[0]
+                  if (file) {
+                    console.log('File selected:', file.name)
+                    // Handle file upload here
+                  }
+                }}
+              />
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className={cn(
+                  'size-8 rounded-full flex-shrink-0 transition-colors duration-200',
+                  isDragOver
+                    ? 'bg-primary/20 hover:bg-primary/30 border-2 border-primary border-dashed'
+                    : 'hover:bg-accent'
+                )}
+                onClick={() => document.getElementById('file-upload')?.click()}
+                onDragOver={e => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  setIsDragOver(true)
+                }}
+                onDragEnter={e => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  setIsDragOver(true)
+                }}
+                onDragLeave={e => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  // Check if we're actually leaving the button element
+                  const rect = e.currentTarget.getBoundingClientRect()
+                  const x = e.clientX
+                  const y = e.clientY
+                  if (
+                    x < rect.left ||
+                    x > rect.right ||
+                    y < rect.top ||
+                    y > rect.bottom
+                  ) {
+                    setIsDragOver(false)
+                  }
+                }}
+                onDrop={e => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  setIsDragOver(false)
+
+                  const files = Array.from(e.dataTransfer.files)
+                  if (files.length > 0) {
+                    const file = files[0]
+                    console.log('File dropped:', file.name)
+                    // Handle file drop here - same logic as file input
+                    // You could trigger the same onChange logic or create a custom handler
+                  }
+                }}
+                title="Upload file or drag and drop"
+              >
+                <Plus
+                  className={cn(
+                    'size-4 transition-colors duration-200',
+                    isDragOver ? 'text-primary' : 'text-muted-foreground'
+                  )}
+                />
+              </Button>
+
+              <Textarea
+                ref={inputRef}
+                name="input"
+                rows={1}
+                maxRows={8}
+                tabIndex={0}
+                onCompositionStart={handleCompositionStart}
+                onCompositionEnd={handleCompositionEnd}
+                placeholder="Ask the concept agent anything about your project..."
+                spellCheck={false}
+                value={input}
+                disabled={isLoading || isToolInvocationInProgress()}
+                className="resize-none flex-1 bg-transparent border-0 text-sm placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 min-h-[20px] py-2"
+                onChange={e => {
+                  handleInputChange(e)
+                  setShowEmptyScreen(e.target.value.length === 0)
+                }}
+                onKeyDown={e => {
+                  if (
+                    e.key === 'Enter' &&
+                    !e.shiftKey &&
+                    !isComposing &&
+                    !enterDisabled
+                  ) {
+                    if (input.trim().length === 0) {
+                      e.preventDefault()
+                      return
+                    }
+                    e.preventDefault()
+                    const textarea = e.target as HTMLTextAreaElement
+                    textarea.form?.requestSubmit()
+                  }
+                }}
+                onFocus={() => setShowEmptyScreen(true)}
+                onBlur={() => setShowEmptyScreen(false)}
+              />
+
+              {/* Action buttons */}
+              <div className="flex items-center gap-2">
+                {messages.length > 0 && (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={handleNewChat}
+                    className="size-8 rounded-full hover:bg-accent"
+                    type="button"
+                    disabled={isLoading || isToolInvocationInProgress()}
+                    title="New chat"
+                  >
+                    <MessageCirclePlus className="size-4" />
+                  </Button>
+                )}
+
+                <Button
+                  type={isLoading ? 'button' : 'submit'}
+                  size="icon"
+                  className={cn(
+                    'size-8 rounded-full',
+                    input.trim().length > 0
+                      ? 'bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white shadow-md'
+                      : 'bg-muted text-muted-foreground'
+                  )}
+                  disabled={
+                    (input.length === 0 && !isLoading) ||
+                    isToolInvocationInProgress()
+                  }
+                  onClick={isLoading ? stop : undefined}
+                >
+                  {isLoading ? <Square size={16} /> : <ArrowUp size={16} />}
+                </Button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      {messages.length === 0 && (
+        <div className="fixed bottom-32 left-0 md:left-[var(--sidebar-width)] right-0 z-30 transition-all duration-300 pointer-events-none">
+          <div className="w-full max-w-3xl mx-auto px-4">
+            <div
+              className={cn(
+                'pointer-events-auto transition-opacity duration-200',
+                showEmptyScreen ? 'visible opacity-100' : 'invisible opacity-0'
+              )}
+            >
+              <EmptyScreen
+                submitMessage={message => {
+                  handleInputChange({
+                    target: { value: message }
+                  } as React.ChangeEvent<HTMLTextAreaElement>)
+                }}
+              />
             </div>
           </div>
         </div>
-
-        {messages.length === 0 && (
-          <EmptyScreen
-            submitMessage={message => {
-              handleInputChange({
-                target: { value: message }
-              } as React.ChangeEvent<HTMLTextAreaElement>)
-            }}
-            className={cn(showEmptyScreen ? 'visible' : 'invisible')}
-          />
-        )}
-      </form>
+      )}
     </div>
   )
 }
